@@ -1,0 +1,35 @@
+abstract class Routes {
+  static const String splashScreen = "/";
+  static const String homeScreen = "/home";
+  static const String preLoginScreen = "/pre-login";
+  static const String loginScreen = "/login";
+  static const String signupScreen = "/signup";
+  static const String forgotPasswordScreen = "/forgot-password";
+  static const String otpScreen = "/otp";
+  static const String passwordResetScreen = "/password-reset";
+  static const String successScreen = "/success";
+  static const String profileSetupScreen = "/profile-setup";
+  static const String termsConditionScreen = "/terms-condition";
+  static const String notificationScreen = "/notifications";
+  static const String insuranceScreen = "/insurance";
+  static const String agentsScreen = "/agents";
+  static const String myAgentsScreen = "/my-agents";
+  static const String agentsCategorySelectionScreen = "/agents-category";
+  static const String agentsListScreen = "/agents-list";
+  static const String uploadForVerificationScreen = "/upload-verification";
+  static const String uploadFileForVerificationScreen = "/upload-file-verification";
+  static const String verifyDocumentsScreen = "/verify-documents";
+  static const String payMyHealthScreen = "/pay-health";
+  static const String bottomNavWrapper = "/bottom-nav-wrapper";
+  static const String profileScreen = "/profile";
+  static const String profileResetPasswordScreen = "/profile-reset-password";
+  static const String settingsScreen = "/settings";
+  static const String cardDetailScreen = "/card-detail-screen";
+  static const String mapHomeScreen = "/map-home-screen";
+  static const String addNewLocationScreen = "/add-new-location-screen";
+  static const String selectCarScreen = "/select-car-screen";
+  static const String addNewCarScreen = "/add-new-car-screen";
+  static const String bookingDetailScreen = "/BookingDetail-screen";
+  static const String paymentMethodScreen = "/PaymentMethod-screen";
+  static const String cleanerInfoScreen = "/CleanerInfo-screen";
+}
