@@ -27,96 +27,102 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          decoration: const BoxDecoration(
+
+          margin: EdgeInsets.only(top: 25),
+          decoration:  const BoxDecoration(
+
               image: DecorationImage(
-                  image: AssetImage("assets/images/app_background.jpg")
+                fit: BoxFit.fill,
+                  image: AssetImage("assets/images/lines.png",),
+
               )
           ),
-          margin:
-          const EdgeInsets.only(top: 180, left: 25, right: 25, bottom: 20),
-          child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: TextField(
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      labelText: "Username or Email",
-                      labelStyle: TextStyle(color: Colors.black)),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 40),
-                child: TextField(
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      disabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      labelText: "Password",
-                      labelStyle: TextStyle(color: Colors.black)),
-                ),
-              ),
-
-              Padding(padding: EdgeInsets.only(top: 10),
-              child: Text(
-                  "Forgot password?",
-                textAlign: TextAlign.left,
-              ),
-              ),
-
-              Padding(padding: EdgeInsets.only(top: 60),
-                child:SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.toNamed(navHome);
-                    },
-                    child:
-                      Text("Confirm"
-                    ),
-                    style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
-                        Colors.lightGreen
-                    )),
-
+          child: Padding(
+            padding: EdgeInsets.only(top: 180, left: 25, right: 25, bottom: 20),
+            child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        disabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        labelText: "Username or Email",
+                        labelStyle: TextStyle(color: Colors.black)),
                   ),
-                ) ,
-              ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 40),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        disabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        labelText: "Password",
+                        labelStyle: TextStyle(color: Colors.black)),
+                  ),
+                ),
 
-            ],
+                Padding(padding: EdgeInsets.only(top: 10),
+                child: Text(
+                    "Forgot password?",
+                  textAlign: TextAlign.left,
+                ),
+                ),
+
+                Padding(padding: EdgeInsets.only(top: 60),
+                  child:SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.toNamed(navHome);
+                      },
+                      child:
+                        Text("Confirm"
+                      ),
+                      style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
+                          Colors.lightGreen
+                      )),
+
+                    ),
+                  ) ,
+                ),
+
+              ],
+            ),
           ),
         ),
       ),

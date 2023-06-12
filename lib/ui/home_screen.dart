@@ -1,12 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lazure_cleaner/navigation/nav_paths.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+
+  var isAccept = true;
+  var isReject = true;
+  var isArrived = false;
+  var isOnline = true;
+  var buttonsAlignment = MainAxisAlignment.spaceBetween;
+  var arrivedText ="Arrived";
+
+
+  @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black45,
@@ -20,8 +39,13 @@ class HomeScreen extends StatelessWidget {
                   child: Image.asset("assets/icons/menu.png")),
               Text("Online"),
               Switch(
-                value: true,
-                onChanged: (bool value) {},
+                value: isOnline,
+                onChanged: (bool value) {
+                  isOnline = !isOnline;
+                  setState(() {
+
+                  });
+                },
                 activeTrackColor: Colors.lightGreen,
                 activeColor: Colors.white,
               )
@@ -41,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                     Column(
                       children: [
                         Container(
-                          color: Colors.black45,
+                          color: Colors.black,
                           height: 50,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 50, right: 50),
@@ -65,10 +89,10 @@ class HomeScreen extends StatelessWidget {
                                           child: SizedBox(
                                             height: 20,
                                             width: 20,
-                                            child: Icon(Icons.star),
+                                            child: Image.asset("assets/icons/star.png"),
                                           ),
                                         ),
-                                        Text("4.6",
+                                        const Text("4.6",
                                             style: TextStyle(color: Colors.white)),
                                       ],
                                     )
@@ -79,24 +103,17 @@ class HomeScreen extends StatelessWidget {
                                     SizedBox(
                                         width: 40,
                                         height: 40,
-                                        child: CircleAvatar(
-                                          radius: 50,
-                                          backgroundColor: Colors.white,
-                                          child: IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(Icons.call),
-                                          ),
+                                        child: IconButton(
+                                          onPressed: () {},
+                                          icon: Image.asset("assets/icons/message_icon.png"),
                                         )),
+                                    SizedBox(),
                                     SizedBox(
                                         width: 40,
                                         height: 40,
-                                        child: CircleAvatar(
-                                          radius: 50,
-                                          backgroundColor: Colors.white,
-                                          child: IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(Icons.message),
-                                          ),
+                                        child: IconButton(
+                                          onPressed: () {},
+                                          icon: Image.asset("assets/icons/call_icon.png"),
                                         )),
                                   ],
                                 ),
@@ -181,44 +198,90 @@ class HomeScreen extends StatelessWidget {
                           Padding(
                               padding: const EdgeInsets.only(top: 10,bottom: 20),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: buttonsAlignment,
                                 children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: SizedBox(
-                                        height: 50,
-                                        child: ElevatedButton(
-                                          onPressed: () {
 
-                                          },
-                                          child:
-                                          Text("Ignore"
+                                  Visibility(
+                                    visible: isArrived,
+                                    child: SizedBox(
+                                      height: 50,
+                                      width: 140,
+                                      child: ElevatedButton(
+
+                                        onPressed: () {
+                                          
+                                          if(arrivedText == "End Cleaning")
+                                          {
+                                            Get.toNamed(navUploadCarDetails);
+                                          }
+                                          else
+                                          {
+                                            arrivedText = "End Cleaning";
+
+                                          }
+                                          setState(() {
+
+                                          });
+                                        },
+                                        child:
+                                        Text(arrivedText
+                                        ),
+                                        style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
+                                            Colors.lightGreen
+                                        )),
+
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: isReject,
+                                    child: Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: SizedBox(
+                                          height: 50,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+
+                                            },
+                                            child:
+                                            Text("Ignore"
+                                            ),
+                                            style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
+                                                Colors.red
+                                            )),
+
                                           ),
-                                          style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
-                                              Colors.red
-                                          )),
-
                                         ),
                                       ),
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: SizedBox(
-                                        height: 50,
-                                        child: ElevatedButton(
-                                          onPressed: () {
+                                  Visibility(
+                                    visible: isAccept,
+                                    child: Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 10),
+                                        child: SizedBox(
+                                          height: 50,
+                                          child: ElevatedButton(
+                                            onPressed: () {
 
-                                          },
-                                          child:
-                                          Text("Accept"
+                                              setState(() {
+                                                isReject = !isReject;
+                                                isAccept = !isAccept;
+                                                isArrived = !isArrived;
+                                                buttonsAlignment = MainAxisAlignment.center;
+
+                                              });
+                                              },
+                                            child:
+                                            Text("Accept"
+                                            ),
+                                            style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
+                                                Colors.lightGreen
+                                            )),
+
                                           ),
-                                          style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
-                                              Colors.lightGreen
-                                          )),
-
                                         ),
                                       ),
                                     ),
