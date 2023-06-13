@@ -1,11 +1,24 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 
-class UploadCarDetails extends StatelessWidget {
+class UploadCarDetails extends StatefulWidget {
   const UploadCarDetails({Key? key}) : super(key: key);
 
   @override
+  State<UploadCarDetails> createState() => _UploadCarDetailsState();
+}
+
+class _UploadCarDetailsState extends State<UploadCarDetails> {
+
+  File? myImage;
+  @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       body: Column(
         children: [
@@ -44,11 +57,16 @@ class UploadCarDetails extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 8.0),
-                          child: SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: Image.asset(
-                                "assets/icons/camera.png"),
+                          child: GestureDetector(
+                            onTap: (){
+                              getImage(ImgSource.Both);
+                            }
+                            ,child: SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: Image.asset(
+                                  "assets/icons/camera.png"),
+                            ),
                           ),
                         ),
                         Text("Number Plate",
@@ -117,5 +135,38 @@ class UploadCarDetails extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future getImage(ImgSource source) async {
+    var image = await ImagePickerGC.pickImage(
+      enableCloseButton: true,
+      closeIcon: const Icon(
+        Icons.close,
+        color: Colors.red,
+        size: 12,
+      ),
+      context: context,
+      source: source,
+      barrierDismissible: true,
+      cameraIcon: const Icon(
+        Icons.camera_alt,
+        color: Colors.red,
+      ),
+      //cameraIcon and galleryIcon can change. If no icon provided default icon will be present
+      cameraText: const Text(
+        "From Camera",
+        style: TextStyle(color: Colors.red),
+      ),
+      galleryText: const Text(
+        "From Gallery",
+        style: TextStyle(color: Colors.blue),
+      ),
+    );
+
+    myImage = File(image.path);
+
+    setState(() {
+      myImage = File(image.path);
+    });
   }
 }

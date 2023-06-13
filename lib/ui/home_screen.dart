@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+  Completer<GoogleMapController> _controller = Completer();
+
 
   var isAccept = true;
   var isReject = true;
@@ -21,7 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
   var buttonsAlignment = MainAxisAlignment.spaceBetween;
   var arrivedText ="Arrived";
 
+  static const LatLng _center = const LatLng(45.521563, -122.677433);
 
+  void _onMapCreated(GoogleMapController controller) {
+    _controller.complete(controller);
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -209,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: ElevatedButton(
 
                                         onPressed: () {
-                                          
+
                                           if(arrivedText == "End Cleaning")
                                           {
                                             Get.toNamed(navUploadCarDetails);
@@ -302,10 +311,16 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
       ),
-      body: Image.asset(
+      body: GoogleMap(
+      onMapCreated: _onMapCreated,
+      initialCameraPosition: CameraPosition(
+        target: _center,
+        zoom: 11.0,
+      ),
+    ), /* Image.asset(
         "assets/images/map.png",
         fit: BoxFit.fill,
-      )
+      )*/
     );
   }
 }
