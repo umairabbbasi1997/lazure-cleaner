@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:lazure_cleaner/controller/login_controller.dart';
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
 import 'package:lazure_cleaner/signup_controller.dart';
 import 'package:lazure_cleaner/utils/form_validator.dart';
@@ -10,20 +11,17 @@ import 'package:lazure_cleaner/widgets/my_text_field.dart';
 
 import '../constants/image_path_constants.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends GetView<LoginController> {
+   LoginScreen({Key? key}) : super(key: key);
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final SignupController _signupController = Get.put(SignupController());
 
   @override
   Widget build(BuildContext context) {
     var isYesChecked = false;
     var isNoChecked = false;
+
+    Get.put(LoginController());
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -45,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: TextField(
+                    controller: controller.emailController,
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -71,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: EdgeInsets.only(top: 40),
                   child: TextField(
+                    controller: controller.passwordController,
                     decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -107,8 +107,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
-                        Get.toNamed(navHome);
+                      onPressed: ()  {
+                       if( controller.loginRequest())
+                       {
+                         Get.toNamed(navHome);
+                       }
                       },
                       child:
                         Text("Confirm"

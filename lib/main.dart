@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   return GetMaterialApp(
     getPages: NavPaths.screens,
     title: 'Lazure',
-    home: HomeScreen(),
+    home: LoginScreen(),
   );
   }
 

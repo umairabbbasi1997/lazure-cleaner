@@ -17,7 +17,7 @@ class NavPaths
     )
     ,
     GetPage(name: navLogin,
-        page: () => const LoginScreen()
+        page: () =>  LoginScreen()
     )
     ,
     GetPage(name: navSignup,
