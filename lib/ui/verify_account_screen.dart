@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:lazure_cleaner/signup_controller.dart';
+import 'package:lazure_cleaner/signup_controller_example.dart';
 import 'package:lazure_cleaner/utils/form_validator.dart';
 import 'package:lazure_cleaner/widgets/large_elevated_button_widget.dart';
 import 'package:lazure_cleaner/widgets/my_text_field.dart';
@@ -18,7 +18,7 @@ class VerifyAccountScreen extends StatefulWidget {
 }
 
 class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
-  final SignupController _signupController = Get.put(SignupController());
+  final SignupControllerExample _signupController = Get.put(SignupControllerExample());
 
   @override
   Widget build(BuildContext context) {

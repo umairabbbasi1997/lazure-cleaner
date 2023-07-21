@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'constants/routes_constants.dart';
 
 
-class SignupController extends GetxController {
+class SignupControllerExample extends GetxController {
   var signupFormKey = GlobalKey<FormState>();
   RxMap<String, bool> isActiveField = {
     "name": false,
@@ -29,6 +29,8 @@ class SignupController extends GetxController {
   Rx<FocusNode> f2 = FocusNode().obs;
   Rx<FocusNode> f3 = FocusNode().obs;
   Rx<FocusNode> f4 = FocusNode().obs;
+
+
 
   activeNameBorder(isActive) {
     isActiveField.forEach((key, value) {

@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
+import 'package:lazure_cleaner/navigation/nav_paths.dart';
 
 class UploadCarDetails extends StatefulWidget {
   const UploadCarDetails({Key? key}) : super(key: key);
@@ -44,69 +46,74 @@ class _UploadCarDetailsState extends State<UploadCarDetails> {
                 ),
 
                 Padding(padding: EdgeInsets.only(top: 30),
-                  child:Container(
+                  child:GestureDetector(
+                    onTap: (){
+                      getImage(ImgSource.Both);
+                    },
+                    child: Container(
 
-                    height: 50,
-                    width: 160,
-                    decoration: BoxDecoration(
-                      color: Colors.lightGreen,
-                        borderRadius: BorderRadius.circular(4)
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: GestureDetector(
-                            onTap: (){
-                              getImage(ImgSource.Both);
-                            }
-                            ,child: SizedBox(
+                      height: 50,
+                      width: 160,
+                      decoration: BoxDecoration(
+                        color: Colors.lightGreen,
+                          borderRadius: BorderRadius.circular(4)
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: SizedBox(
                               width: 20,
                               height: 20,
                               child: Image.asset(
                                   "assets/icons/camera.png"),
                             ),
                           ),
-                        ),
-                        Text("Number Plate",
-                          style: TextStyle(
-                            color: Colors.white
-                          ),
-                        )
-                      ],
+                          Text("Number Plate",
+                            style: TextStyle(
+                              color: Colors.white
+                            ),
+                          )
+                        ],
 
+                      ),
                     ),
                   ) ,
                 ),
                 Padding(padding: EdgeInsets.only(top: 20),
-                  child:Container(
+                  child:GestureDetector(
+                    onTap: (){
+                      getImage(ImgSource.Both);
+                    },
+                    child: Container(
 
-                    height: 50,
-                    width: 160,
-                    decoration: BoxDecoration(
-                        color: Colors.lightGreen,
-                        borderRadius: BorderRadius.circular(4)
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: Image.asset(
-                                "assets/icons/camera.png"),
+                      height: 50,
+                      width: 160,
+                      decoration: BoxDecoration(
+                          color: Colors.lightGreen,
+                          borderRadius: BorderRadius.circular(4)
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: Image.asset(
+                                  "assets/icons/camera.png"),
+                            ),
                           ),
-                        ),
-                        Text("Sides",
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        )
-                      ],
+                          Text("Sides",
+                            style: TextStyle(
+                                color: Colors.white
+                            ),
+                          )
+                        ],
 
+                      ),
                     ),
                   ) ,
                 ),
@@ -120,7 +127,7 @@ class _UploadCarDetailsState extends State<UploadCarDetails> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-
+                    Get.offNamed(navVerified);
                   },
                   child:
                   Text("Verify"

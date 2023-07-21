@@ -4,7 +4,9 @@ import 'package:lazure_cleaner/ui/collect_payment.dart';
 import 'package:lazure_cleaner/ui/home_screen.dart';
 import 'package:lazure_cleaner/ui/login_screen.dart';
 import 'package:lazure_cleaner/ui/signup_screen.dart';
+import 'package:lazure_cleaner/ui/splash_screen.dart';
 import 'package:lazure_cleaner/ui/upload_car_details.dart';
+import 'package:lazure_cleaner/ui/verified_screen.dart';
 import 'package:lazure_cleaner/ui/verify_account_screen.dart';
 
 
@@ -36,5 +38,11 @@ class NavPaths
         page: () =>  VerifyAccountScreen()
     )
     ,
+    GetPage(name: navVerified,
+        page: () =>  VerifiedScreen()
+    ),
+    GetPage(name: navSplash,
+        page: () =>  SplashScreen()
+    )
   ];
 }

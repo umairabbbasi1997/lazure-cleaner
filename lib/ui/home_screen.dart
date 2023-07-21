@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,8 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  Completer<GoogleMapController> _controller = Completer();
-
+ late GoogleMapController mapController;
 
   var isAccept = true;
   var isReject = true;
@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static const LatLng _center = const LatLng(45.521563, -122.677433);
 
   void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
+    mapController = controller;
   }
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black45,
+        backgroundColor: Colors.black54
+        ,
         title: Container(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,9 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+        automaticallyImplyLeading: false,
       ),
-      bottomSheet: SizedBox(
-        height: 270,
+      bottomSheet: Visibility(
+        visible: isOnline,
         child: BottomSheet(
           onClosing: () {},
           builder: (BuildContext context) {
@@ -221,7 +223,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                           if(arrivedText == "End Cleaning")
                                           {
+                                            isReject = !isReject;
+                                            isAccept = !isAccept;
+                                            isArrived = !isArrived;
+                                            buttonsAlignment = MainAxisAlignment.spaceBetween;
                                             Get.toNamed(navUploadCarDetails);
+
                                           }
                                           else
                                           {
@@ -311,13 +318,18 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
       ),
-      body: GoogleMap(
-      onMapCreated: _onMapCreated,
-      initialCameraPosition: CameraPosition(
-        target: _center,
-        zoom: 11.0,
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: CameraPosition(
+          target: _center,
+          zoom: 11.0,
+        ),
+    ),
       ),
-    ), /* Image.asset(
+
+      /*  Image.asset(
         "assets/images/map.png",
         fit: BoxFit.fill,
       )*/

@@ -3,10 +3,22 @@
 
     <permission android:name="andorid.permission.INTERNET"></permission>
     <permission android:name="andorid.permission.ACCESS_BACKGROUND_LOCATION"></permission>
+
+    <permission
+        android:name="your app package name.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="your app package name.permission.MAPS_RECEIVE" />
+
      <application
         android:label="lazure_cleaner"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+         <meta-data android:name="com.google.android.geo.API_KEY"
+             android:value="AIzaSyDeDoofukEs8vAINWmRVUPQGVJxShBe64I"
+             />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -33,7 +45,11 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAllptV27n8D6muPPxhlDUgUULM4hsB0k4"/>
+
+        <!--<meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDeDoofukEs8vAINWmRVUPQGVJxShBe64I"
+            />-->
+         <!-- ANDROID KEY          android:value="AIzaSyAllptV27n8D6muPPxhlDUgUULM4hsB0k4"-->
+
     </application>
 </manifest>

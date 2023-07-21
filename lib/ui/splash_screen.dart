@@ -26,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        height: MediaQuery.of(context).size.height,
         child: Image.asset("assets/images/splash_screen.jpg",
         fit: BoxFit.fill,
         ),

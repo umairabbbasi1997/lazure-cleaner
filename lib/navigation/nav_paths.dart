@@ -4,3 +4,5 @@ const String navLogin = '/login_screen';
 const String navSignup = '/signup_screen';
 const String navUploadCarDetails = '/upload_car_details';
 const String navVerifyAccountScreen = '/verify_account_screen';
+const String navVerified = '/verified_screen';
+const String navSplash = '/splash_screen';

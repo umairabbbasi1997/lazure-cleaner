@@ -9,6 +9,7 @@ class CollectPayment extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
+
           Container(
             width: double.infinity,
             color: Colors.black87,
