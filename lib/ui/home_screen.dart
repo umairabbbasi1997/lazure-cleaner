@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static const LatLng _center = const LatLng(45.521563, -122.677433);
 
+ final GlobalKey<ScaffoldState> _key = GlobalKey();
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
@@ -36,6 +37,133 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
     return Scaffold(
+      key: _key,
+      drawer: Drawer(
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: ListTileTheme(
+              textColor: Colors.black,
+              iconColor: Colors.black,
+              child: SizedBox(
+                height: Get.size.height,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+
+                      ListTile(
+                        onTap: () {},
+                        leading:
+                        Image.asset("assets/icons/home_icon.png",
+                        height: 30,
+                          width: 30,
+                        ),
+                        title: Text(
+                          "Home",
+                          style:
+                          TextStyle(fontWeight: FontWeight.bold)
+                          ,
+                        )
+                      ),
+                      ListTile(
+                        onTap: () {
+                          Get.offNamed(navEditProfile);
+
+                        },
+                        leading: Image.asset(  height: 30,
+                          width: 30,
+                            "assets/icons/profile_icon.png"),
+                        title: Text(
+                          "My Profile",
+                          style:
+                          TextStyle(fontWeight: FontWeight.bold)
+                          ,
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+
+                        },
+                        leading: Image.asset(  height: 30,
+                          width: 30,
+                            "assets/icons/job_history_icon.png"),
+                        title: Text(
+                          "Job History",
+                          style:
+                          TextStyle(fontWeight: FontWeight.bold)
+                          ,
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+
+                        },
+                        leading: Image.asset(  height: 30,
+                          width: 30,
+                            "assets/icons/notification_icon.png"),
+                        title: Text(
+                          "Notifications",
+                          style:
+                          TextStyle(fontWeight: FontWeight.bold)
+                          ,
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+
+
+                          // Get.offNamed(routeCheckoutScreen);
+
+                        },
+                        leading: Image.asset(  height: 30,
+                          width: 30,
+                            "assets/icons/contact_support_icon.png"),
+                        title: Text(
+                          "Contact & Support",
+                          style:
+                          TextStyle(fontWeight: FontWeight.bold)
+                          ,
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+                          Get.offNamed(navChangePassword);
+                        },
+                        leading: Image.asset(  height: 30,
+                          width: 30,
+                            "assets/icons/change_password_icon.png"),
+                        title: Text(
+                          "Change Password",
+                          style:
+                          TextStyle(fontWeight: FontWeight.bold)
+                          ,
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+
+                        },
+                        leading: Image.asset(  height: 30,
+                          width: 30,
+                            "assets/icons/logout_icon.png"),
+                        title: Text(
+                          "Logout",
+                          style:
+                          TextStyle(fontWeight: FontWeight.bold)
+                          ,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.black54
         ,
@@ -46,7 +174,11 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                   width: 30,
                   height: 30,
-                  child: Image.asset("assets/icons/menu.png")),
+                  child: GestureDetector(
+                      onTap: (){
+                        _key.currentState!.openDrawer();
+                      },
+                      child: Image.asset("assets/icons/menu.png"))),
               Text("Online"),
               Switch(
                 value: isOnline,
@@ -221,22 +353,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                         onPressed: () {
 
-                                          if(arrivedText == "End Cleaning")
-                                          {
-                                            isReject = !isReject;
-                                            isAccept = !isAccept;
-                                            isArrived = !isArrived;
-                                            buttonsAlignment = MainAxisAlignment.spaceBetween;
-                                            Get.toNamed(navUploadCarDetails);
 
-                                          }
-                                          else
+                                         /* else
                                           {
                                             arrivedText = "End Cleaning";
 
-                                          }
+                                          }*/
                                           setState(() {
+                                            if(arrivedText == "Arrived")
+                                            {
+/*                                            isReject = !isReject;
+                                            isAccept = !isAccept;
+                                            isArrived = !isArrived;
+                                            buttonsAlignment = MainAxisAlignment.spaceBetween;*/
+                                              arrivedText = "End Cleaning";
+                                              Get.toNamed(navUploadCarDetails);
 
+                                            }
+                                            else if(arrivedText == "End Cleaning")
+                                            {
+                                              isReject = !isReject;
+                                              isAccept = !isAccept;
+                                              isArrived = !isArrived;
+                                              buttonsAlignment = MainAxisAlignment.spaceBetween;
+                                              Get.toNamed(navJobComplete);
+
+                                            }
                                           });
                                         },
                                         child:
@@ -283,6 +425,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             onPressed: () {
 
                                               setState(() {
+                                                arrivedText = "Arrived";
                                                 isReject = !isReject;
                                                 isAccept = !isAccept;
                                                 isArrived = !isArrived;

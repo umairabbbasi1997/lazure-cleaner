@@ -42,7 +42,14 @@ dependencies:
   flutter_otp_text_field: ^1.1.1
   google_maps_flutter: ^2.3.1
   image_picker_gallery_camera: ^0.2.2
-  
+  http: ^0.13.4
+  loader_overlay: ^2.3.2
+  cached_network_image: ^3.0.0
+  circular_profile_avatar: ^2.0.5
+  firebase_messaging: ^14.6.7
+  firebase_core: ^2.15.1
+  flutter_local_notifications: ^15.1.1
+
 
 
 dev_dependencies:

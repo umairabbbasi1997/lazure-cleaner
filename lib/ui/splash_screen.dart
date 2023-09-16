@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     super.initState();
     Timer(Duration(seconds: 3),
-            ()=>   Get.toNamed(navLogin)
+            ()=>   Get.offNamed(navLogin)
     );
   }
 

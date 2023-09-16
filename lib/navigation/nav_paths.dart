@@ -6,3 +6,6 @@ const String navUploadCarDetails = '/upload_car_details';
 const String navVerifyAccountScreen = '/verify_account_screen';
 const String navVerified = '/verified_screen';
 const String navSplash = '/splash_screen';
+const String navJobComplete = '/job_complete_screen';
+const String navEditProfile = '/edit_profile_screen';
+const String navChangePassword = '/change_password';

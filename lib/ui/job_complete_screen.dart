@@ -11,8 +11,11 @@ class JobCompleteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Image.asset("assets/images/job_complete.jpg",
-        fit: BoxFit.fill,
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: Image.asset("assets/images/job_complete.jpg",
+          fit: BoxFit.fill,
+        ),
       ),
     );
   }
