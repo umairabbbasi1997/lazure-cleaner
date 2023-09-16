@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "901627450056",
+    "project_id": "lazure-app-ca191",
+    "storage_bucket": "lazure-app-ca191.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901627450056:android:1840ca9a57edf520bacbfd",
+        "android_client_info": {
+          "package_name": "com.lazure.lazure_cleaner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901627450056-6p72f3e4uj4lr5u9s7nvvcvop5tm8oqg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8z2h-_e7TfIhx7GR2ZUZMX9phoUNafV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901627450056-6p72f3e4uj4lr5u9s7nvvcvop5tm8oqg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
