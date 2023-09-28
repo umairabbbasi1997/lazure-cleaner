@@ -1,8 +1,14 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+import 'package:get/get.dart';
+import 'package:lazure_cleaner/navigation/nav_paths.dart';
+
+import '../controller/home_controller.dart';
 
 class FirebaseMessagingService
 {
@@ -42,6 +48,22 @@ class FirebaseMessagingService
 
       debugPrint('Notificatuion Recieved'+notification!.body.toString());
 
+      debugPrint('notification_payload'+message.data.toString());
+      String bookingData  = message.data['booking'].toString() ;//?? message;
+      final bookingJsonDecode = jsonDecode(bookingData);
+      HomeController.bookingId.value = bookingJsonDecode["id"].toString();
+
+      String customerData  = message.data['customer'].toString() ;//?? message;
+      final jsonData = jsonDecode(customerData);
+      debugPrint('data'+customerData.toString());
+      String firstName = jsonData["first_name"].toString();
+      String lastName = jsonData['last_name'].toString();
+      String phone = jsonData['phone'].toString();
+
+      debugPrint('data :'+firstName.toString()+lastName+phone);
+      HomeController.customerName.value = firstName + lastName;
+      HomeController.customerPhone.value = phone;
+      HomeController.isNewRide.value = true;
       flutterLocalNotificationsPlugin.show(
           notification.hashCode,
           notification?.title,
@@ -56,6 +78,21 @@ class FirebaseMessagingService
               icon: 'launch_background',
             ),
           ));
+
+     // Get.offNamed(navHome);
+
+
+
+
+
+      FlutterRingtonePlayer.play(
+        android: AndroidSounds.ringtone,
+        ios: IosSounds.bell,
+        looping: false, // Android only - API >= 28
+        volume: 0.1, // Android only - API >= 28
+        asAlarm: false, // Android only - all APIs
+      );
+
 
 /*      if (notification != null && android != null) {}*/
 

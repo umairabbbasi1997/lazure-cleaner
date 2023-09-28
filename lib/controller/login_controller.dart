@@ -14,13 +14,14 @@ class LoginController extends GetxController {
   TextEditingController passwordController = TextEditingController();
 
 
-
-  Future<bool> loginRequest( BuildContext context) async {
-
-
-    debugPrint("cntrl: "+emailController.text.toString());
-    if (emailController.text.toString().isEmpty ||
-        passwordController.text.toString().isEmpty ) {
+  Future<bool> loginRequest(BuildContext context) async {
+    debugPrint("cntrl: " + emailController.text.toString());
+    if (emailController.text
+        .toString()
+        .isEmpty ||
+        passwordController.text
+            .toString()
+            .isEmpty) {
       Get.snackbar("Error", "Email/Password is required",
           snackPosition: SnackPosition.BOTTOM,
           colorText: Colors.white,
@@ -30,10 +31,10 @@ class LoginController extends GetxController {
     }
 
     final bool emailValid =
-    RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+    RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(emailController.text.toString());
-    if(!emailValid)
-    {
+    if (!emailValid) {
       Get.snackbar("Error", "Incorrect email format",
           snackPosition: SnackPosition.BOTTOM,
           colorText: Colors.white,
@@ -41,8 +42,9 @@ class LoginController extends GetxController {
       return false;
     }
 
-    if(passwordController.text.toString().length < 6)
-    {
+    if (passwordController.text
+        .toString()
+        .length < 6) {
       Get.snackbar("Error", "Password must be 6 characters long",
           snackPosition: SnackPosition.BOTTOM,
           colorText: Colors.white,
@@ -50,43 +52,42 @@ class LoginController extends GetxController {
       return false;
     }
 
-      else
-      {
-           Map<String,String> param = {"login_field":emailController.text.toString(),"password":passwordController.text.toString()};
-        var response = await ApiService().post(Constants.loginURL,context,body: param);
+    else {
+      Map<String, String> param = {
+        "login_field": emailController.text.toString(),
+        "password": passwordController.text.toString()
+      };
+      var response = await ApiService().post(
+          Constants.loginURL, context, body: param);
 
-        var  succes = jsonDecode(response.body)['sucess'] ?? false;
+      var succes = jsonDecode(response.body)['sucess'] ?? false;
 
-        if(succes)
-          {
-
-            var jsonResult = jsonDecode(response.body)['data'];
-
-
-            var user = UserResponse.fromJson(jsonResult);
-            String userString = jsonEncode(user);
-
-            await LocalStorageService().save(Constants.currentUser,userString);
-            var  token = jsonDecode(response.body)['token'];
+      if (succes) {
+        var jsonResult = jsonDecode(response.body)['data'];
 
 
-            await LocalStorageService().save(Constants.jwToken,token);
+        var user = UserResponse.fromJson(jsonResult);
+        String userString = jsonEncode(user);
 
-            debugPrint("succes: "+succes.toString()+"token: "+token);
+        await LocalStorageService().save(Constants.currentUser, userString);
+        var token = jsonDecode(response.body)['token'];
 
-          }
-        else{
 
-          var  message = jsonDecode(response.body)['message'];
+        await LocalStorageService().save(Constants.jwToken, token);
 
-          Get.snackbar("Error", message,
-              snackPosition: SnackPosition.BOTTOM,
-              colorText: Colors.white,
-              backgroundColor: Colors.red);
-        }
-
-        return succes;
+        debugPrint("succes: " + succes.toString() + "token: " + token);
       }
+      else {
+        var message = jsonDecode(response.body)['message'];
+
+        Get.snackbar("Error", message,
+            snackPosition: SnackPosition.BOTTOM,
+            colorText: Colors.white,
+            backgroundColor: Colors.red);
+      }
+
+      return succes;
+    }
   }
 
 

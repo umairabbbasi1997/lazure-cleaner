@@ -1,17 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:lazure_cleaner/controller/change_password_controller.dart';
-import 'package:lazure_cleaner/controller/login_controller.dart';
-import 'package:lazure_cleaner/navigation/nav_paths.dart';
-import 'package:lazure_cleaner/signup_controller_example.dart';
-import 'package:lazure_cleaner/utils/form_validator.dart';
-import 'package:lazure_cleaner/widgets/large_elevated_button_widget.dart';
-import 'package:lazure_cleaner/widgets/my_text_field.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-
-import '../constants/image_path_constants.dart';
 
 class ChangePasswordScreen extends GetView<ChangePasswordController> {
   ChangePasswordScreen({Key? key}) : super(key: key);
@@ -28,7 +19,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
         child: SingleChildScrollView(
           child: Container(
             height: MediaQuery.of(context).size.height,
-            margin: EdgeInsets.only(top: 25),
+            margin: const EdgeInsets.only(top: 25),
             decoration:  const BoxDecoration(
 
                 image: DecorationImage(
@@ -50,14 +41,14 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                       child: Image.asset("assets/icons/logo_black.png")),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 110, left: 25, right: 25, bottom: 20),
+                  padding: const EdgeInsets.only(top: 110, left: 25, right: 25, bottom: 20),
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.only(top: 10),
                         child: TextField(
                           controller: controller.passwordController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.black,
@@ -81,10 +72,10 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 40),
+                        padding: const EdgeInsets.only(top: 40),
                         child: TextField(
                           controller: controller.newPasswordController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.black,
@@ -108,10 +99,10 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 40),
+                        padding: const EdgeInsets.only(top: 40),
                         child: TextField(
                           controller: controller.confirmPasswordController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.black,
@@ -152,7 +143,7 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
                             child:
                             Text("Update Password"
                             ),
-                            style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
+                            style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(
                                 Colors.lightGreen
                             )),
 

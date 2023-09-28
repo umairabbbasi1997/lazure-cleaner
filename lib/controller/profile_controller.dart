@@ -16,19 +16,18 @@ class ProfileController extends GetxController {
 
 
 
-  TextEditingController fNController = TextEditingController();
-  TextEditingController lNController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
   TextEditingController mNumberController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
 
-  bool isPasswordShowing = false;
-  bool isConfirmPassShowing = false;
-  File? myImage;
 
-  RxString profileUrl = ''.obs;
+  var myImage = File("").obs ;
 
-  CachedNetworkImage? cachedImage;
+  var profileUrl = ''.obs;
+
+  var cachedImage = CachedNetworkImage(imageUrl: "").obs;
 
   late UserResponse user;
 
@@ -58,8 +57,8 @@ class ProfileController extends GetxController {
       ),
     );
 
-    myImage = File(image.path);
-    profileUrl = image.path;
+//    myImage.value = File(image.path) ;
+    profileUrl.value = image.path;
 
     /*setState(() {
         myImage = File(image.path);
@@ -70,8 +69,8 @@ class ProfileController extends GetxController {
   Future<bool> updateProfile( BuildContext context) async {
 
 
-    debugPrint("cntrl: "+fNController.text.toString());
-    if (fNController.text.toString().isEmpty  ) {
+    debugPrint("cntrl: "+nameController.text.toString());
+    if (nameController.text.toString().isEmpty  ) {
       Get.snackbar("Error", "First Name is required",
           snackPosition: SnackPosition.BOTTOM,
           colorText: Colors.white,
@@ -82,7 +81,7 @@ class ProfileController extends GetxController {
 
 
 
-    if(lNController.text.toString().isEmpty)
+    if(genderController.text.toString().isEmpty)
     {
       Get.snackbar("Error", "Password must be 6 characters long",
           snackPosition: SnackPosition.BOTTOM,
@@ -102,8 +101,8 @@ class ProfileController extends GetxController {
       else
       {
            Map<String,String> param =
-           {"first_name":fNController.text.toString(),
-             "last_name":lNController.text.toString(),
+           {"first_name":nameController.text.toString(),
+             "last_name":genderController.text.toString(),
              "phone":mNumberController.text.toString()
            };
         var response = await ApiService().post(Constants.profileUpdateURL,context,body: param);
@@ -166,10 +165,30 @@ class ProfileController extends GetxController {
 
   setUser() async {
     var user = await getUser();
-     fNController.text = user!.firstName.toString();
-     lNController.text = user!.lastName.toString();
+     nameController.text = user!.firstName.toString()+" "+user!.lastName.toString();
+     genderController.text = user!.gender.toString();
      mNumberController.text = user!.phone.toString();
      emailController.text = user!.email.toString();
+
+
+    profileUrl.value = "";
+
+    if (myImage.value == null) {
+      profileUrl.value != null
+          ? cachedImage.value = CachedNetworkImage(
+        imageUrl: profileUrl.value,
+        progressIndicatorBuilder: (context, url, downloadProgress) =>
+            CircularProgressIndicator(value: downloadProgress.progress),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+        fit: BoxFit.fill,
+      )
+          : const Image(
+        image: AssetImage('assets/images/user_avatar.png'),
+        width: 25,
+        height: 25,
+      );
+    }
+
   }
 
   Future<UserResponse?> getUser() async {
@@ -188,5 +207,7 @@ class ProfileController extends GetxController {
     }
 
   }
+
+
 
 }

@@ -15,17 +15,16 @@ class Constants {
 
   static String profileUpdateURL = '$baseURL/profile/update';
   static String CHANGE_PASSWORD_URL = '$baseURL/profile/change-password';
+  static String LOGOUT_URL = '$baseURL/logout';
+  static String ACCEPT_JOB_URL = '$baseURL/bookings/accepted';
+  static String REJECT_JOB_URL = '$baseURL/bookings/rejected';
+  static String ARRIVED_JOB_URL = '$baseURL/bookings/arrived';
+  static String COMPLETED_JOB_URL = '$baseURL/bookings/completed';
 
 
 
 
 
-
-
-  //Auth Key
-  static String authKey = '2b223e5cee713615ha54ac0405tRg9a123703mk411';
-
-  static String TIME_STAMP = "timestamp";
 
 
 
