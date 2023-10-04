@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:loader_overlay/loader_overlay.dart';
 
@@ -34,18 +36,26 @@ class ApiService {
       );
 
       context.loaderOverlay.hide();
-      /*if (response.statusCode == 401) {
-        //await refreshAuthToken();
-        reqHeaders = await getReqHeaders();
-        response = await http.post(
-          uriObj,
-          body: jsonEncode(body),
-          headers: headers ?? reqHeaders,
-        );
-      }*/
+      context.loaderOverlay.hide();
+
+      var success = jsonDecode(response.body)['sucess'] ?? false;
+
+      if(success)
+      {
+        return response;
+      }
+      else{
+        var message = jsonDecode(response.body)['message'];
+
+        Get.snackbar("Error", message,
+            snackPosition: SnackPosition.BOTTOM,
+            colorText: Colors.white,
+            backgroundColor: Colors.red);
+      }
 
       return response;
     } catch (err) {
+      debugPrint("error: "+err.toString());
       rethrow;
     }
   }
@@ -65,17 +75,26 @@ class ApiService {
       );
 
       context.loaderOverlay.hide();
-      /*if (response.statusCode == 401) {
-        //await refreshAuthToken();
-        reqHeaders = await getReqHeaders();
-        response = await http.get(
-          uriObj,
-          headers: headers ?? reqHeaders,
-        );
-      }*/
+      context.loaderOverlay.hide();
+
+      var success = jsonDecode(response.body)['sucess'] ?? false;
+
+      if(success)
+      {
+        return response;
+      }
+      else{
+        var message = jsonDecode(response.body)['message'];
+
+        Get.snackbar("Error", message,
+            snackPosition: SnackPosition.BOTTOM,
+            colorText: Colors.white,
+            backgroundColor: Colors.red);
+      }
 
       return response;
     } catch (err) {
+      debugPrint("error: "+err.toString());
       rethrow;
     }
   }
