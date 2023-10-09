@@ -18,7 +18,7 @@ class VerifyAccountScreen extends StatefulWidget {
 }
 
 class _VerifyAccountScreenState extends State<VerifyAccountScreen> {
-  final SignupControllerExample _signupController = Get.put(SignupControllerExample());
+
 
   @override
   Widget build(BuildContext context) {

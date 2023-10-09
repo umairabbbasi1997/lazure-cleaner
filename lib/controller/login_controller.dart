@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,14 +54,22 @@ class LoginController extends GetxController {
     }
 
     else {
-      Map<String, String> param = {
+    //  var fcmToken = await LocalStorageService().read(Constants.fcmToken);
+
+      String? fcmToken = await FirebaseMessaging.instance.getToken();
+
+
+      debugPrint("login_fcm: " +fcmToken!);
+
+      Map<String, Object> param = {
         "login_field": emailController.text.toString(),
-        "password": passwordController.text.toString()
+        "password": passwordController.text.toString(),
+        'device_token' : fcmToken  ?? ""
       };
       var response = await ApiService().post(
           Constants.loginURL, context, body: param);
 
-      var succes = jsonDecode(response.body)['sucess'] ?? false;
+      var succes = jsonDecode(response.body)['success'] ?? false;
 
       if (succes) {
         var jsonResult = jsonDecode(response.body)['data'];
@@ -84,7 +93,9 @@ class LoginController extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
             colorText: Colors.white,
             backgroundColor: Colors.red);
+        debugPrint("error: " + message.toString());
       }
+
 
       return succes;
     }

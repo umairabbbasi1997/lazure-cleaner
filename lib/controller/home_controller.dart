@@ -1,11 +1,14 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lazure_cleaner/constants/BookingDetails.dart';
 import 'package:lazure_cleaner/model/UserResponse.dart';
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
 import 'package:lazure_cleaner/utils/constants.dart';
@@ -17,19 +20,12 @@ import '../api_service/api_services.dart';
 import '../utils/local_storage_service.dart';
 
 class HomeController extends GetxController {
+
   late GoogleMapController mapController;
 
-  var userName = "".obs;
 
-  var isAccept = true.obs;
-  var isReject = true.obs;
-  var isArrived = false.obs;
-  var isCompleted = false.obs;
-  var isOnline = true.obs;
-  static var isNewRide = false.obs;
-  static var customerName = "".obs;
-  static var customerPhone = "".obs;
-  static var bookingId = "".obs;
+
+  var firebaseRef = FirebaseDatabase.instance.ref();
 
   var buttonsAlignment = MainAxisAlignment.spaceBetween.obs;
   var arrivedText = "Arrived".obs;
@@ -40,11 +36,19 @@ class HomeController extends GetxController {
   Position? posinitial;
   final lat = 0.0.obs, lng = 0.0.obs;
 
+  UserResponse? user;
+
+  StreamSubscription<Position>? positionStream;
+
+  var userName;
+
 
   @override
   void onInit() async {
     /// Run through here
 
+    BookingDetails.isOnline.value = await LocalStorageService().read(Constants.IS_ONLINE) ?? false;
+    print("online: "+BookingDetails.isOnline.value.toString() );
     super.onInit();
   }
   getPositionData() async{
@@ -60,7 +64,36 @@ class HomeController extends GetxController {
           CameraUpdate.newCameraPosition(CameraPosition( target: currentLocation.value,
             zoom: 16.0,)));
       Get.context?.loaderOverlay.hide();
+
     }
+  }
+  
+  updateLiveLocation() async {
+
+    if(user==null)
+      {
+        setProfile();
+      }
+    
+    positionStream = Geolocator.getPositionStream(
+      locationSettings: LocationSettings(accuracy: LocationAccuracy.high,distanceFilter: 1),
+    ).listen((position) {
+      // Do something with the new position
+      
+      firebaseRef
+          .child("riders")
+          .child("rider"+user!.id.toString())
+          .child("latitude")
+          .set(position.latitude);
+
+      firebaseRef
+          .child("riders")
+          .child("rider"+user!.id.toString())
+          .child("longitude")
+          .set(position.longitude);
+
+
+    });
   }
 
   Future<void> logout(BuildContext context) async {
@@ -78,7 +111,7 @@ class HomeController extends GetxController {
 
 
   Future<void> jobAcceptRequest(BuildContext context) async {
-    Map<String, String> param = {"booking_id": bookingId.value.toString()};
+    Map<String, String> param = {"booking_id": BookingDetails.bookingId.value.toString()};
 
     var response =
         await ApiService().post(Constants.ACCEPT_JOB_URL, context, body: param);
@@ -86,18 +119,28 @@ class HomeController extends GetxController {
     var success = jsonDecode(response.body)['success'];
 
     if (success) {
+
+      firebaseRef
+          .child("riders")
+          .child("rider"+user!.id.toString())
+          .child("jobStatus")
+          .set("In-Route");
+
       debugPrint("job accepted success");
 
       FlutterRingtonePlayer.stop();
       arrivedText.value = "Arrived";
-      isReject.value = !isReject.value;
-      isAccept.value = !isAccept.value;
-      isArrived.value = !isArrived.value;
+
+      BookingDetails.isReject.value = !BookingDetails.isReject.value;
+      BookingDetails.isAccept.value = !BookingDetails.isAccept.value;
+      BookingDetails.isArrived.value = !BookingDetails.isArrived.value;
+
+      updateLiveLocation();
     }
   }
 
   Future<void> jobRejectRequest(BuildContext context) async {
-    Map<String, String> param = {"booking_id": bookingId.value.toString()};
+    Map<String, String> param = {"booking_id": BookingDetails.bookingId.value.toString()};
 
     var response =
         await ApiService().post(Constants.REJECT_JOB_URL, context, body: param);
@@ -105,14 +148,21 @@ class HomeController extends GetxController {
     var success = jsonDecode(response.body)['success'];
 
     if (success) {
+
+      firebaseRef
+          .child("riders")
+          .child("rider"+user!.id.toString())
+          .child("jobStatus")
+          .set("rejected");
+
       debugPrint("job rejected success");
-      isNewRide.value = false;
-      isReject.value = true;
+      BookingDetails.isNewRide.value = false;
+      BookingDetails.isReject.value = true;
     }
   }
 
   Future<void> jobArrivedRequest(BuildContext context) async {
-    Map<String, String> param = {"booking_id": bookingId.value.toString()};
+    Map<String, String> param = {"booking_id": BookingDetails.bookingId.value.toString()};
 
     var response = await ApiService()
         .post(Constants.ARRIVED_JOB_URL, context, body: param);
@@ -120,6 +170,12 @@ class HomeController extends GetxController {
     var success = jsonDecode(response.body)['success'];
 
     if (success) {
+      firebaseRef
+          .child("riders")
+          .child("rider"+user!.id.toString())
+          .child("jobStatus")
+          .set("Arrived");
+
       debugPrint("job arrived success");
 /*      isReject.value = !isReject.value;
       isAccept.value = !isAccept.value;
@@ -131,27 +187,90 @@ class HomeController extends GetxController {
   }
 
   Future<void> jobCompletedRequest(BuildContext context) async {
-    Map<String, String> param = {"booking_id": bookingId.value.toString()};
+    Map<String, String> param = {"booking_id": BookingDetails.bookingId.value.toString()};
 
     var response = await ApiService()
-        .post(Constants.ARRIVED_JOB_URL, context, body: param);
+        .post(Constants.COMPLETED_JOB_URL, context, body: param);
 
     var success = jsonDecode(response.body)['success'];
 
     if (success) {
+      firebaseRef
+          .child("riders")
+          .child("rider"+user!.id.toString())
+          .child("jobStatus")
+          .set("Completed");
+
+      removeListener(() {positionStream; });
+      positionStream?.cancel();
+
+      firebaseRef
+          .child("riders")
+          .child("rider${user!.id}")
+          .child("latitude")
+          .remove();
+
+      firebaseRef
+          .child("riders")
+          .child("rider${user!.id}")
+          .child("longitude")
+          .remove();
+
+
       debugPrint("job completed success");
-      HomeController.isNewRide.value = false;
-      isReject.value = isReject.value;
-      isAccept.value = isAccept.value;
-      isArrived.value = isArrived.value;
+      BookingDetails.isNewRide.value = false;
+      BookingDetails.isReject.value = true;
+      BookingDetails.isAccept.value = true;
+      BookingDetails.isArrived.value = false;
       buttonsAlignment.value = MainAxisAlignment.spaceBetween;
       Get.toNamed(navJobComplete);
     }
   }
 
+  static Future<void> jobStartedRequest(BuildContext context) async
+  {
+    var user;
+
+    var userObj = await LocalStorageService().read(Constants.currentUser);
+    if (userObj == null) {
+      return null;
+    } else {
+      Map<String, dynamic> userMap = jsonDecode(userObj);
+
+      UserResponse userR = UserResponse.fromJson(userMap);
+      user = userR;
+    }
+
+    FirebaseDatabase.instance.ref()
+        .child("riders")
+        .child("rider"+user!.id.toString())
+        .child("jobStatus")
+        .set("Started");
+  }
+
+  Future<void> switchOnlineRequest(BuildContext context,String status) async {
+    Map<String, String> param = {"status": status};
+
+    var response = await ApiService()
+        .post(Constants.SWITCH_ONLINE_STATUS_URL, context, body: param);
+
+    var success = jsonDecode(response.body)['success'];
+
+    if (success) {
+
+
+      BookingDetails.isOnline.value = !BookingDetails.isOnline.value;
+
+      await LocalStorageService().save(Constants.IS_ONLINE, BookingDetails.isOnline.value);
+
+      print("statusSwitched: "+BookingDetails.isOnline.value.toString()+" statuskey: "+status);
+    }
+  }
+
+
   setProfile() async {
-    var user = await getUser();
-    var fullName = user!.firstName.toString() + " " + user.lastName.toString();
+     user = await getUser();
+    var fullName = user!.firstName.toString() + " " + user!.lastName.toString();
     userName = fullName.obs;
   }
 

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
@@ -9,12 +12,14 @@ import 'package:lazure_cleaner/controller/home_controller.dart';
 import 'package:lazure_cleaner/navigation/screen_nav.dart';
 import 'package:lazure_cleaner/services/firebase_messaging_service.dart';
 import 'package:lazure_cleaner/ui/change_password_screen.dart';
+import 'package:lazure_cleaner/ui/home_screen.dart';
 
 import 'package:lazure_cleaner/ui/splash_screen.dart';
 import 'package:lazure_cleaner/utils/constants.dart';
 import 'package:lazure_cleaner/utils/local_storage_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'constants/BookingDetails.dart';
 import 'controller/change_password_controller.dart';
 
 Future<void> main() async {
@@ -23,6 +28,8 @@ Future<void> main() async {
   await requestNotificationPermissions();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  FirebaseDatabase.instance.setPersistenceEnabled(true);
+  FirebaseDatabase.instance.reference().keepSynced(true);
   runApp(const MyApp());
 }
 Future<void> requestNotificationPermissions() async {
@@ -67,20 +74,8 @@ class MyApp extends StatelessWidget {
 
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  debugPrint("background message :"+message.data.values.toString());
+  debugPrint("background message :"+message.data.toString());
 
-  if(LocalStorageService().read(Constants.jwToken)!=null)
-    {
-      HomeController.isNewRide.value = true;
-      FlutterRingtonePlayer.play(
-        android: AndroidSounds.ringtone,
-        ios: IosSounds.bell,
-        looping: false, // Android only - API >= 28
-        volume: 0.1, // Android only - API >= 28
-        asAlarm: false, // Android only - all APIs
-      );
-
-    }
 
 
 }

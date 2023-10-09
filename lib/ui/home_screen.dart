@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lazure_cleaner/constants/BookingDetails.dart';
+import 'package:lazure_cleaner/constants/BookingDetails.dart';
+import 'package:lazure_cleaner/constants/BookingDetails.dart';
 import 'package:lazure_cleaner/controller/home_controller.dart';
 
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
@@ -14,9 +17,8 @@ import 'package:loader_overlay/loader_overlay.dart';
 class HomeScreen extends GetView<HomeController> {
 
 
-  static const LatLng _center = const LatLng(45.521563, -122.677433);
-
   final GlobalKey<ScaffoldState> _key = GlobalKey();
+
 
 
 
@@ -94,7 +96,7 @@ class HomeScreen extends GetView<HomeController> {
                             ],
                           ),
                         ),
-                        ListTile(
+/*                        ListTile(
                             onTap: () {
                               Get.offNamed(navHome);
                             },
@@ -109,7 +111,7 @@ class HomeScreen extends GetView<HomeController> {
                               TextStyle(fontWeight: FontWeight.bold)
                               ,
                             )
-                        ),
+                        ),*/
                         ListTile(
                           onTap: () {
                             Get.toNamed(navEditProfile);
@@ -211,7 +213,7 @@ class HomeScreen extends GetView<HomeController> {
           ),
         ),
         appBar: AppBar(
-          backgroundColor: Colors.black54
+          backgroundColor: Colors.black
           ,
           title: Container(
             child: Row(
@@ -227,9 +229,9 @@ class HomeScreen extends GetView<HomeController> {
                         child: Image.asset("assets/icons/menu.png"))),
                 Text("Online"),
                Obx(() =>  Switch(
-                 value: controller.isOnline.value,
-                 onChanged: (bool value) {
-                   controller.isOnline.value = !controller.isOnline.value;
+                 value: BookingDetails.isOnline.value,
+                 onChanged: (bool value) async {
+                   await controller.switchOnlineRequest(context, value ? "1" : "0");
 
                  },
                  activeTrackColor: Colors.lightGreen,
@@ -241,7 +243,7 @@ class HomeScreen extends GetView<HomeController> {
           automaticallyImplyLeading: false,
         ),
         bottomSheet: Obx(() => Visibility(
-          visible: HomeController.isNewRide.value,
+          visible: BookingDetails.isNewRide.value,
           child: BottomSheet(
             onClosing: () {},
             builder: (BuildContext context) {
@@ -263,7 +265,7 @@ class HomeScreen extends GetView<HomeController> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Obx(() => Text(
-                                          HomeController.customerName.value,
+                                          BookingDetails.customerName.value,
                                           style: TextStyle(color: Colors.white),
                                         )),
                                         Row(
@@ -332,7 +334,7 @@ class HomeScreen extends GetView<HomeController> {
                                                 "Contact Number",
                                                 style: TextStyle(fontWeight: FontWeight.w600),
                                               ),
-                                              Obx(() =>  Text(HomeController.customerPhone.value)),
+                                              Obx(() =>  Text(BookingDetails.customerPhone.value)),
                                             ],
                                           ),
                                         ),
@@ -347,16 +349,16 @@ class HomeScreen extends GetView<HomeController> {
                                               ),
                                               SizedBox(
                                                 width: 100,
-                                                child: Text(
-                                                  "ABC,street, 123, Road canal city",
+                                                child: Obx(() => Text(
+                                                  BookingDetails.customerAddress.value,
                                                   softWrap: true,
                                                   textAlign: TextAlign.justify,
-                                                ),
+                                                )),
                                               ),
                                             ],
                                           ),
                                         ),
-                                        Padding(
+                                       /* Padding(
                                           padding: const EdgeInsets.only(top: 8,bottom: 8),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -368,7 +370,7 @@ class HomeScreen extends GetView<HomeController> {
                                               Text("abc 123456"),
                                             ],
                                           ),
-                                        )
+                                        )*/
                                       ],
                                     ),
                                     SizedBox(
@@ -389,7 +391,7 @@ class HomeScreen extends GetView<HomeController> {
                                     children: [
 
                                       Visibility(
-                                        visible: controller.isArrived.value,
+                                        visible: BookingDetails.isArrived.value,
                                         child: SizedBox(
                                           height: 50,
                                           width: 140,
@@ -428,7 +430,7 @@ class HomeScreen extends GetView<HomeController> {
                                         ),
                                       ),
                                       Visibility(
-                                        visible: controller.isReject.value,
+                                        visible: BookingDetails.isReject.value,
                                         child: Expanded(
                                           child: Padding(
                                             padding: const EdgeInsets.only(right: 10),
@@ -451,7 +453,7 @@ class HomeScreen extends GetView<HomeController> {
                                         ),
                                       ),
                                       Visibility(
-                                        visible: controller.isAccept.value,
+                                        visible: BookingDetails.isAccept.value,
                                         child: Expanded(
                                           child: Padding(
                                             padding: const EdgeInsets.only(left: 10),
@@ -507,6 +509,7 @@ class HomeScreen extends GetView<HomeController> {
                 zoom: 16.0,
               ),
               myLocationEnabled: true,
+              myLocationButtonEnabled: true,
             )
             ,
           ),

@@ -48,7 +48,7 @@ class _UploadCarDetailsState extends State<UploadCarDetails> {
                 Padding(padding: EdgeInsets.only(top: 30),
                   child:GestureDetector(
                     onTap: (){
-                      getImage(ImgSource.Both);
+                      getImage(ImgSource.Camera);
                     },
                     child: Container(
 
@@ -84,7 +84,7 @@ class _UploadCarDetailsState extends State<UploadCarDetails> {
                 Padding(padding: EdgeInsets.only(top: 20),
                   child:GestureDetector(
                     onTap: (){
-                      getImage(ImgSource.Both);
+                      getImage(ImgSource.Camera);
                     },
                     child: Container(
 

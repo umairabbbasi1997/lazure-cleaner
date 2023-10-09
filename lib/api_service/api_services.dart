@@ -38,7 +38,7 @@ class ApiService {
       context.loaderOverlay.hide();
       context.loaderOverlay.hide();
 
-      var success = jsonDecode(response.body)['sucess'] ?? false;
+      var success = jsonDecode(response.body)['success'] ?? false;
 
       if(success)
       {
@@ -77,7 +77,7 @@ class ApiService {
       context.loaderOverlay.hide();
       context.loaderOverlay.hide();
 
-      var success = jsonDecode(response.body)['sucess'] ?? false;
+      var success = jsonDecode(response.body)['success'] ?? false;
 
       if(success)
       {
