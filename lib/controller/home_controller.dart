@@ -25,6 +25,7 @@ class HomeController extends GetxController {
 
 
 
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{}.obs;
   var firebaseRef = FirebaseDatabase.instance.ref();
 
   var buttonsAlignment = MainAxisAlignment.spaceBetween.obs;
@@ -105,7 +106,7 @@ class HomeController extends GetxController {
 
     await LocalStorageService().clear();
 
-    Get.offNamed(navLogin);
+    Get.offNamed(navSplash);
   }
 
 
@@ -142,6 +143,7 @@ class HomeController extends GetxController {
   Future<void> jobRejectRequest(BuildContext context) async {
     Map<String, String> param = {"booking_id": BookingDetails.bookingId.value.toString()};
 
+    removeMarker();
     var response =
         await ApiService().post(Constants.REJECT_JOB_URL, context, body: param);
 
@@ -364,6 +366,42 @@ class HomeController extends GetxController {
 
    // update();
 
+  }
+
+ bool markLocation() {
+
+if(BookingDetails.customerLng.value != null || BookingDetails.customerLat.value !=null || BookingDetails.customerLng.value != "" || BookingDetails.customerLat.value != "")
+  {
+    try{
+      var marker = Marker(
+          markerId: MarkerId('customer'),
+          position: LatLng(double.parse(BookingDetails.customerLat.value), double.parse(BookingDetails.customerLng.value))
+
+        // icon: BitmapDescriptor.,
+      );
+      markers[MarkerId('customer')] = marker;
+    }
+    catch(e){
+      print(e.toString());
+    }
+    print("lng: "+BookingDetails.customerLng.value +"lat: "+BookingDetails.customerLat.value);
+
+
+
+    return true;
+  }
+else
+{
+  return true;
+}
+
+
+
+
+  }
+
+  removeMarker(){
+    markers.clear();
   }
 
 }

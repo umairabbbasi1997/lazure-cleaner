@@ -23,7 +23,7 @@ class Constants {
   static String REJECT_JOB_URL = '$baseURL/bookings/rejected';
   static String ARRIVED_JOB_URL = '$baseURL/bookings/arrived';
   static String COMPLETED_JOB_URL = '$baseURL/bookings/completed';
-
+  static String JOB_HISTORY_URL = '$baseURL/bookings';
 
 
 

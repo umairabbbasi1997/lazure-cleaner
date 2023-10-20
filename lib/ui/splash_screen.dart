@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -32,9 +31,25 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: Image.asset("assets/images/splash_screen.jpg",
-        fit: BoxFit.fill,
+        alignment: Alignment.center,
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(
+                  "assets/images/splash_bg.png",
+                ),
+                fit: BoxFit.fill)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/icons/app_main_logo.png", scale: 4, ),
+            // SizedBox(height: 5,),
+/*            Image.asset(IconPathConstants.carIcon, scale: 2.5, ),*/
+            const SizedBox(height: 50),
+            const CupertinoActivityIndicator(
+              radius: 20,
+              color: Colors.white,
+            ),
+          ],
         ),
       ),
     );

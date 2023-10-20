@@ -34,12 +34,12 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
 
-                Center(
+               /* Center(
                   child: SizedBox(
                       height:80 ,
                       width: 150,
                       child: Image.asset("assets/icons/logo_black.png")),
-                ),
+                ),*/
                 Padding(
                   padding: const EdgeInsets.only(top: 110, left: 25, right: 25, bottom: 20),
                   child: Column(

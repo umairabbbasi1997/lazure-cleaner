@@ -3,6 +3,7 @@ import 'package:lazure_cleaner/binding/change_password_binding.dart';
 import 'package:lazure_cleaner/binding/job_history_binding.dart';
 import 'package:lazure_cleaner/binding/login_binding.dart';
 import 'package:lazure_cleaner/binding/profile_binding.dart';
+import 'package:lazure_cleaner/binding/verify_binding.dart';
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
 import 'package:lazure_cleaner/ui/change_password_screen.dart';
 import 'package:lazure_cleaner/ui/collect_payment.dart';
@@ -24,8 +25,8 @@ class NavPaths {
     GetPage(name: navHome, page: () =>  HomeScreen(),binding :HomeBinding()),
     GetPage(name: navLogin, page: () => LoginScreen(), binding:LoginBinding() ),
     GetPage(name: navSignup, page: () => const SignupScreen()),
-    GetPage(name: navCollectPayment, page: () => const CollectPayment()),
-    GetPage(name: navUploadCarDetails, page: () => const UploadCarDetails()),
+    GetPage(name: navCollectPayment, page: () =>  CollectPayment()),
+    GetPage(name: navUploadCarDetails, page: () =>  UploadCarDetails(),binding: VerifyBinding()),
     GetPage(name: navVerifyAccountScreen, page: () => VerifyAccountScreen()),
     GetPage(name: navVerified, page: () => VerifiedScreen()),
     GetPage(name: navSplash, page: () => SplashScreen()),

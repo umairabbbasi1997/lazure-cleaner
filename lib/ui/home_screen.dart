@@ -114,7 +114,7 @@ class HomeScreen extends GetView<HomeController> {
                         ),*/
                         ListTile(
                           onTap: () {
-                            Get.toNamed(navEditProfile);
+                            Get.toNamed(navUploadCarDetails);
 
                           },
                           leading: Image.asset(  height: 30,
@@ -141,7 +141,7 @@ class HomeScreen extends GetView<HomeController> {
                             ,
                           ),
                         ),
-                        ListTile(
+/*                        ListTile(
                           onTap: () {
 
                           },
@@ -171,7 +171,7 @@ class HomeScreen extends GetView<HomeController> {
                             TextStyle(fontWeight: FontWeight.bold)
                             ,
                           ),
-                        ),
+                        ),*/
                         ListTile(
                           onTap: () {
                             Get.toNamed(navChangePassword);
@@ -242,236 +242,187 @@ class HomeScreen extends GetView<HomeController> {
           ),
           automaticallyImplyLeading: false,
         ),
-        bottomSheet: Obx(() => Visibility(
-          visible: BookingDetails.isNewRide.value,
-          child: BottomSheet(
-            onClosing: () {},
-            builder: (BuildContext context) {
-              return Wrap(
-                  children: <Widget>[
-                    Column(
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              color: Colors.black,
-                              height: 50,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 50, right: 50),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Obx(() => Text(
-                                          BookingDetails.customerName.value,
-                                          style: TextStyle(color: Colors.white),
-                                        )),
-                                        Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 10),
-                                              child: SizedBox(
-                                                height: 20,
-                                                width: 20,
-                                                child: Image.asset("assets/icons/star.png"),
-                                              ),
-                                            ),
-                                            const Text("4.6",
-                                                style: TextStyle(color: Colors.white)),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        SizedBox(
-                                            width: 40,
-                                            height: 40,
-                                            child: IconButton(
-                                              onPressed: () {},
-                                              icon: Image.asset("assets/icons/message_icon.png"),
-                                            )),
-                                        SizedBox(),
-                                        SizedBox(
-                                            width: 40,
-                                            height: 40,
-                                            child: IconButton(
-                                              onPressed: () {},
-                                              icon: Image.asset("assets/icons/call_icon.png"),
-                                            )),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        Container(
-                          color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 50,right: 50),
-                            child: Column(
+        bottomSheet: Obx(() {
 
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 8.0),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Contact Number",
-                                                style: TextStyle(fontWeight: FontWeight.w600),
-                                              ),
-                                              Obx(() =>  Text(BookingDetails.customerPhone.value)),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 8.0),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Address",
-                                                style: TextStyle(fontWeight: FontWeight.w600),
-                                              ),
-                                              SizedBox(
-                                                width: 100,
-                                                child: Obx(() => Text(
-                                                  BookingDetails.customerAddress.value,
-                                                  softWrap: true,
-                                                  textAlign: TextAlign.justify,
-                                                )),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                       /* Padding(
-                                          padding: const EdgeInsets.only(top: 8,bottom: 8),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Car registeration",
-                                                style: TextStyle(fontWeight: FontWeight.w600),
-                                              ),
-                                              Text("abc 123456"),
-                                            ],
-                                          ),
-                                        )*/
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                      child: CircleAvatar(
-
-                                        child: Image.asset("assets/icons/user.png"),
-                                      ),
-                                    )
-
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10,bottom: 20),
-                                  child: Obx(() => Row(
-                                    mainAxisAlignment: controller.buttonsAlignment.value,
+          if (BookingDetails.isNewRide.value) {
+            controller.markLocation();
+           return BottomSheet(
+              onClosing: () {},
+              builder: (BuildContext context) {
+                return Wrap(
+                    children: <Widget>[
+                      Column(
+                        children: [
+                          Column(
+                            children: [
+                              Container(
+                                color: Colors.black,
+                                height: 50,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 50, right: 50),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-
-                                      Visibility(
-                                        visible: BookingDetails.isArrived.value,
-                                        child: SizedBox(
-                                          height: 50,
-                                          width: 140,
-                                          child: ElevatedButton(
-
-                                            onPressed: () {
-
-
-                                              /* else
-                                            {
-                                              arrivedText = "End Cleaning";
-
-                                            }*/
-
-                                              if(controller.arrivedText.value == "Arrived")
-                                              {
-                                                controller.jobArrivedRequest(context);
-
-
-
-                                              }
-                                              else if(controller.arrivedText.value == "End Cleaning")
-                                              {
-                                                controller.jobCompletedRequest(context);
-                                              }
-
-                                            },
-                                            child:
-                                            Text(controller.arrivedText.value
-                                            ),
-                                            style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
-                                                Colors.lightGreen
-                                            )),
-
-                                          ),
-                                        ),
-                                      ),
-                                      Visibility(
-                                        visible: BookingDetails.isReject.value,
-                                        child: Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(right: 10),
-                                            child: SizedBox(
-                                              height: 50,
-                                              child: ElevatedButton(
-                                                onPressed: () {
-                                                  controller.jobRejectRequest(context);
-                                                },
-                                                child:
-                                                Text("Ignore"
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Obx(() => Text(
+                                            BookingDetails.customerName.value,
+                                            style: TextStyle(color: Colors.white),
+                                          )),
+                                          Row(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 10),
+                                                child: SizedBox(
+                                                  height: 20,
+                                                  width: 20,
+                                                  child: Image.asset("assets/icons/star.png"),
                                                 ),
-                                                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
-                                                    Colors.red
-                                                )),
-
                                               ),
+                                              const Text("4.6",
+                                                  style: TextStyle(color: Colors.white)),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                              width: 40,
+                                              height: 40,
+                                              child: IconButton(
+                                                onPressed: () {},
+                                                icon: Image.asset("assets/icons/message_icon.png"),
+                                              )),
+                                          SizedBox(),
+                                          SizedBox(
+                                              width: 40,
+                                              height: 40,
+                                              child: IconButton(
+                                                onPressed: () {},
+                                                icon: Image.asset("assets/icons/call_icon.png"),
+                                              )),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          Container(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 50,right: 50),
+                              child: Column(
+
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 8.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Contact Number",
+                                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                                ),
+                                                Obx(() =>  Text(BookingDetails.customerPhone.value)),
+                                              ],
                                             ),
                                           ),
-                                        ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 8.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Address",
+                                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                                ),
+                                                SizedBox(
+                                                  width: 100,
+                                                  child: Obx(() => Text(
+                                                    BookingDetails.customerAddress.value,
+                                                    softWrap: true,
+                                                    textAlign: TextAlign.justify,
+                                                  )),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          /* Padding(
+                                            padding: const EdgeInsets.only(top: 8,bottom: 8),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Car registeration",
+                                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                                ),
+                                                Text("abc 123456"),
+                                              ],
+                                            ),
+                                          )*/
+                                        ],
                                       ),
-                                      Visibility(
-                                        visible: BookingDetails.isAccept.value,
-                                        child: Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(left: 10),
+                                      SizedBox(
+                                        width: 100,
+                                        height: 100,
+                                        child: CircleAvatar(
+
+                                          child: Image.asset("assets/icons/user.png"),
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                  Padding(
+                                      padding: const EdgeInsets.only(top: 10,bottom: 20),
+                                      child: Obx(() => Row(
+                                        mainAxisAlignment: controller.buttonsAlignment.value,
+                                        children: [
+
+                                          Visibility(
+                                            visible: BookingDetails.isArrived.value,
                                             child: SizedBox(
                                               height: 50,
+                                              width: 140,
                                               child: ElevatedButton(
+
                                                 onPressed: () {
 
-//                                                HomeController.isNewRide.value = false;
 
-                                                  controller.jobAcceptRequest(context);
+                                                  /* else
+                                              {
+                                                arrivedText = "End Cleaning";
 
-                                                  controller.buttonsAlignment.value = MainAxisAlignment.center;
+                                              }*/
 
+                                                  if(controller.arrivedText.value == "Arrived")
+                                                  {
+                                                    controller.jobArrivedRequest(context);
+
+
+
+                                                  }
+                                                  else if(controller.arrivedText.value == "End Cleaning")
+                                                  {
+                                                    controller.jobCompletedRequest(context);
+                                                  }
 
                                                 },
                                                 child:
-                                                Text("Accept"
+                                                Text(controller.arrivedText.value
                                                 ),
                                                 style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
                                                     Colors.lightGreen
@@ -480,37 +431,94 @@ class HomeScreen extends GetView<HomeController> {
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      )
-                                    ],
-                                  ),)
-                                )
+                                          Visibility(
+                                            visible: BookingDetails.isReject.value,
+                                            child: Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(right: 10),
+                                                child: SizedBox(
+                                                  height: 50,
+                                                  child: ElevatedButton(
+                                                    onPressed: () {
+                                                      controller.jobRejectRequest(context);
+                                                    },
+                                                    child:
+                                                    Text("Ignore"
+                                                    ),
+                                                    style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
+                                                        Colors.red
+                                                    )),
 
-                              ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: BookingDetails.isAccept.value,
+                                            child: Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(left: 10),
+                                                child: SizedBox(
+                                                  height: 50,
+                                                  child: ElevatedButton(
+                                                    onPressed: () {
+
+//                                                HomeController.isNewRide.value = false;
+
+                                                      controller.jobAcceptRequest(context);
+
+                                                      controller.buttonsAlignment.value = MainAxisAlignment.center;
+
+
+                                                    },
+                                                    child:
+                                                    Text("Accept"
+                                                    ),
+                                                    style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
+                                                        Colors.lightGreen
+                                                    )),
+
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),)
+                                  )
+
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      ],
-                    )
-                  ]
+                          )
+                        ],
+                      )
+                    ]
 
-              );
-            },
-          ),
-        )),
+                );
+              },
+            );
+          }
+          else {
+            return SizedBox();
+          }
+        } ),
         body: LoaderOverlay(
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
-            child: GoogleMap(
+            child: Obx(() => GoogleMap(
               onMapCreated: controller.onMapCreated,
               initialCameraPosition:
               const CameraPosition(
                 target: LatLng(0,0),
+
                 zoom: 16.0,
               ),
+              markers: Set.of(controller.markers.values),
               myLocationEnabled: true,
               myLocationButtonEnabled: true,
-            )
+            ))
             ,
           ),
         ),

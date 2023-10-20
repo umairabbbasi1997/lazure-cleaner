@@ -76,12 +76,31 @@ class FirebaseMessagingService
       debugPrint('data'+addressJsonData.toString());
       String address = addressJsonData["address"].toString();
       String city = addressJsonData['city'].toString();
+      String latitude = addressJsonData['latitude'].toString();
+      String longitude = addressJsonData['longitude'].toString();
 
+
+
+      //vehicle data
+      String vehicleData  = message.data['vehicle'].toString() ;//?? message;
+      final vehicleJsonData = jsonDecode(vehicleData);
+      debugPrint('data'+vehicleJsonData.toString());
+      String regNo = vehicleJsonData["registration_no"].toString();
+      String color = vehicleJsonData['color'].toString();
+      String make = vehicleJsonData['make'].toString();
+      String model = vehicleJsonData['model'].toString();
+
+/*      vehicle: {"registration_no":"AMX-234","color":"sliver","make":"ACURA","model":"Civic"}, customer: {"first_name":"Customer","last_name":"Test","phone":"03000000000"}}*/
 
       debugPrint('data :'+firstName.toString()+lastName+phone);
       BookingDetails.customerName.value = firstName +" "+lastName;
       BookingDetails.customerPhone.value = phone;
       BookingDetails.customerAddress.value = address;
+      BookingDetails.customerRegNo.value = regNo;
+      BookingDetails.customerLat.value = latitude;
+      BookingDetails.customerLng.value = longitude;
+
+
       BookingDetails.isNewRide.value = true;
       flutterLocalNotificationsPlugin.show(
           notification.hashCode,

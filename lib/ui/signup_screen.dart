@@ -31,7 +31,7 @@ class _SignupScreenState extends State<SignupScreen> {
         image: DecorationImage(
         fit: BoxFit.fill,
         image:
-        AssetImage("assets/images/lines.png",)
+        AssetImage("assets/images/bg_lines_logo.jpeg",)
     )),
         child: SingleChildScrollView(
           child: Padding(
@@ -40,9 +40,7 @@ class _SignupScreenState extends State<SignupScreen> {
               children: [
                 Center(
                   child: SizedBox(
-                      height:80 ,
-                      width: 150,
-                      child: Image.asset("assets/icons/logo_black.png")),
+                      height:80 ),
                 ),
                  Padding(
                   padding: EdgeInsets.only(top: 10),

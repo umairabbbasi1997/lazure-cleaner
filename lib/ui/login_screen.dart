@@ -33,7 +33,7 @@ class LoginScreen extends GetView<LoginController> {
                 image: DecorationImage(
                   fit: BoxFit.fill,
                     image:
-                    AssetImage("assets/images/lines.png",),
+                    AssetImage("assets/images/bg_lines_logo.jpeg",),
 
                 )
             ),
@@ -42,12 +42,12 @@ class LoginScreen extends GetView<LoginController> {
             crossAxisAlignment: CrossAxisAlignment.end,
               children: [
 
-                Center(
+                /*Center(
                   child: SizedBox(
                     height:80 ,
                       width: 150,
                       child: Image.asset("assets/icons/logo_black.png")),
-                ),
+                ),*/
                 Padding(
                   padding: EdgeInsets.only(top: 180, left: 25, right: 25, bottom: 20),
                   child: Column(
@@ -83,6 +83,7 @@ class LoginScreen extends GetView<LoginController> {
                         padding: EdgeInsets.only(top: 40),
                         child: TextField(
                           controller: controller.passwordController,
+
                           decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -135,7 +136,7 @@ class LoginScreen extends GetView<LoginController> {
                           ),
                         ) ,
                       ),
-
+/*
                       GestureDetector(
                         onTap: ()
                         {
@@ -149,7 +150,7 @@ class LoginScreen extends GetView<LoginController> {
                             ),
                           ),
                         ),
-                      ),
+                      ),*/
                     ],
 
                   ),

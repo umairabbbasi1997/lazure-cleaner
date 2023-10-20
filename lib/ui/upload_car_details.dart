@@ -4,18 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
+import 'package:lazure_cleaner/controller/verify_controller.dart';
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
 
-class UploadCarDetails extends StatefulWidget {
-  const UploadCarDetails({Key? key}) : super(key: key);
-
-  @override
-  State<UploadCarDetails> createState() => _UploadCarDetailsState();
-}
-
-class _UploadCarDetailsState extends State<UploadCarDetails> {
-
+class UploadCarDetails extends GetView<VerifyController> {
   File? myImage;
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -40,7 +35,7 @@ class _UploadCarDetailsState extends State<UploadCarDetails> {
                     maxLines: 3,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.white
+                        color: Colors.white
                     ),
                   ),
                 ),
@@ -48,14 +43,14 @@ class _UploadCarDetailsState extends State<UploadCarDetails> {
                 Padding(padding: EdgeInsets.only(top: 30),
                   child:GestureDetector(
                     onTap: (){
-                      getImage(ImgSource.Camera);
+                      getImage(ImgSource.Camera,context);
                     },
                     child: Container(
 
                       height: 50,
                       width: 160,
                       decoration: BoxDecoration(
-                        color: Colors.lightGreen,
+                          color: Colors.lightGreen,
                           borderRadius: BorderRadius.circular(4)
                       ),
                       child: Row(
@@ -72,7 +67,7 @@ class _UploadCarDetailsState extends State<UploadCarDetails> {
                           ),
                           Text("Number Plate",
                             style: TextStyle(
-                              color: Colors.white
+                                color: Colors.white
                             ),
                           )
                         ],
@@ -84,7 +79,7 @@ class _UploadCarDetailsState extends State<UploadCarDetails> {
                 Padding(padding: EdgeInsets.only(top: 20),
                   child:GestureDetector(
                     onTap: (){
-                      getImage(ImgSource.Camera);
+                      getImage(ImgSource.Camera,context);
                     },
                     child: Container(
 
@@ -127,7 +122,8 @@ class _UploadCarDetailsState extends State<UploadCarDetails> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.offNamed(navVerified);
+
+                    controller.verifyCarDetails();
                   },
                   child:
                   Text("Verify"
@@ -144,7 +140,7 @@ class _UploadCarDetailsState extends State<UploadCarDetails> {
     );
   }
 
-  Future getImage(ImgSource source) async {
+  Future getImage(ImgSource source,BuildContext context) async {
     var image = await ImagePickerGC.pickImage(
       enableCloseButton: true,
       closeIcon: const Icon(
@@ -172,8 +168,10 @@ class _UploadCarDetailsState extends State<UploadCarDetails> {
 
     myImage = File(image.path);
 
-    setState(() {
-      myImage = File(image.path);
-    });
-  }
+    controller.recognizedText(image.path);
+
+ }
+
 }
+
+

@@ -13,6 +13,7 @@ class BookingDetails
   static var customerName = "".obs;
   static var customerPhone = "".obs;
   static var customerAddress = "".obs;
+  static var customerRegNo = "".obs;
   static var customerLat = "".obs;
   static var customerLng = "".obs;
   static var bookingId = "".obs;

@@ -53,6 +53,7 @@ dependencies:
   permission_handler: ^11.0.0
   flutter_ringtone_player: ^3.2.0
   firebase_database: ^10.2.7
+  google_ml_kit: ^0.16.2
 
 dev_dependencies:
   flutter_test:

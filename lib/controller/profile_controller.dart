@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
 import 'package:lazure_cleaner/model/UserResponse.dart';
 import 'package:lazure_cleaner/utils/constants.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../api_service/api_services.dart';
 import '../utils/local_storage_service.dart';
@@ -23,7 +24,7 @@ class ProfileController extends GetxController {
 
 
 
-  var myImage = File("").obs ;
+  var myImage = null.obs ;
 
   var profileUrl = ''.obs;
 
@@ -32,6 +33,9 @@ class ProfileController extends GetxController {
   late UserResponse user;
 
   Future getImage(ImgSource source,BuildContext context) async {
+
+    await Permission.photos.request();
+
     var image = await ImagePickerGC.pickImage(
       enableCloseButton: true,
       closeIcon: const Icon(
@@ -174,7 +178,7 @@ class ProfileController extends GetxController {
     profileUrl.value = "";
 
     if (myImage.value == null) {
-      profileUrl.value != null
+      profileUrl.value.isNotEmpty
           ? cachedImage.value = CachedNetworkImage(
         imageUrl: profileUrl.value,
         progressIndicatorBuilder: (context, url, downloadProgress) =>

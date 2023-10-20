@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -67,7 +68,7 @@ class EditProfileScreen extends GetView<ProfileController>{
                   const SizedBox(
                     height: 9,
                   ),
-                  Center(
+                /*  Center(
                     child: Padding(
                       padding: const EdgeInsets.only(
                         left: 130,
@@ -79,7 +80,7 @@ class EditProfileScreen extends GetView<ProfileController>{
                         },
                         child: Stack(
                           children: [
-                            CircularProfileAvatar('',
+*//*                            CircularProfileAvatar('',
                                 placeHolder: (context, path) => const Image(
                                   image: AssetImage(
                                       'assets/icons/user.png'),
@@ -98,33 +99,21 @@ class EditProfileScreen extends GetView<ProfileController>{
 
                                 ),
 
-                              child: Obx(() => CachedNetworkImage
-                                (
-                                imageUrl: controller.profileUrl.value,
-
-
-                              )),
-                              /*child:  Image(
-                                image: AssetImage(
-                                    'assets/icons/user.png'),
-                                width: 25,
-                                height: 25,
-                              )*/
-/*                                child:  Image.file(
-                                  File(controller.profileUrl.value),
-                                  fit: BoxFit.cover,
-                                  width: 95,
-                                  height: 95,
-                                )*/
-
-                              /*myImage != null ? Image.file(myImage!, fit: BoxFit.cover, width: 95, height: 95,) : const Image(
-                                fit: BoxFit.fill,
-                                image: AssetImage("assets/images/user_avatar.png"),
+                              child: Obx(() =>
+                              controller.myImage.value != null
+                              ? Image.file(
+                                controller.myImage.value!,
+                                fit: BoxFit.cover,
                                 width: 95,
                                 height: 95,
-                              ),*/
+                              )
+                                :controller.cachedImage.value == null ? const Image(
+                        image: AssetImage('assets/icons/user_avatar.png'),
+                        width: 25,
+                        height: 25,
+                      ) : controller.cachedImage.value
 
-                            ),
+                            )),*//*
                             Positioned(
                               right: 0,
                               left: 68,
@@ -144,14 +133,14 @@ class EditProfileScreen extends GetView<ProfileController>{
                           ],
                         ),
 
-                        /*const Image(
+                        *//*const Image(
                           image: AssetImage('assets/images/profile_image.png'),
                           width: 90,
                           height: 90,
-                        ),*/
+                        ),*//*
                       ),
                     ),
-                  ),
+                  ),*/
                   const SizedBox(
                     height: 38,
                   ),

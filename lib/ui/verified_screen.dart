@@ -7,7 +7,7 @@ import 'package:lazure_cleaner/controller/home_controller.dart';
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
 
 class VerifiedScreen extends StatelessWidget {
-  const VerifiedScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class VerifiedScreen extends StatelessWidget {
                     onPressed: () async {
                     await  HomeController.jobStartedRequest(context);
 
-                      Get.back();
+                      Get.offNamed(navCollectPayment);
                     },
                     child:
                     Text("Done"
@@ -48,6 +48,8 @@ class VerifiedScreen extends StatelessWidget {
         ],),
     );
   }
+
+
 }
 
 
