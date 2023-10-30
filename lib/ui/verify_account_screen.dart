@@ -1,15 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:lazure_cleaner/signup_controller_example.dart';
-import 'package:lazure_cleaner/utils/form_validator.dart';
-import 'package:lazure_cleaner/widgets/large_elevated_button_widget.dart';
-import 'package:lazure_cleaner/widgets/my_text_field.dart';
-
-import '../constants/image_path_constants.dart';
-
 class VerifyAccountScreen extends StatefulWidget {
    VerifyAccountScreen({Key? key}) : super(key: key);
 

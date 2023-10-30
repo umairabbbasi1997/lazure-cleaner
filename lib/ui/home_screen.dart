@@ -114,7 +114,7 @@ class HomeScreen extends GetView<HomeController> {
                         ),*/
                         ListTile(
                           onTap: () {
-                            Get.toNamed(navUploadCarDetails);
+                            Get.toNamed(navEditProfile);
 
                           },
                           leading: Image.asset(  height: 30,

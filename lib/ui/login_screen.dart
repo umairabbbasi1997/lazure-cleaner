@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:lazure_cleaner/controller/login_controller.dart';
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
-import 'package:lazure_cleaner/signup_controller_example.dart';
 import 'package:lazure_cleaner/utils/form_validator.dart';
 import 'package:lazure_cleaner/widgets/large_elevated_button_widget.dart';
 import 'package:lazure_cleaner/widgets/my_text_field.dart';

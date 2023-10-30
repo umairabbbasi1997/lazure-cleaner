@@ -3,12 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
-import 'package:lazure_cleaner/signup_controller_example.dart';
-import 'package:lazure_cleaner/utils/form_validator.dart';
-import 'package:lazure_cleaner/widgets/large_elevated_button_widget.dart';
-import 'package:lazure_cleaner/widgets/my_text_field.dart';
-
-import '../constants/image_path_constants.dart';
 import '../controller/signup_controller.dart';
 
 class SignupScreen extends StatefulWidget {

@@ -6,7 +6,7 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
+
 import 'package:lazure_cleaner/controller/profile_controller.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
