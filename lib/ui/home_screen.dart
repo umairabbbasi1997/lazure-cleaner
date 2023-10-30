@@ -13,6 +13,7 @@ import 'package:lazure_cleaner/controller/home_controller.dart';
 
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 class HomeScreen extends GetView<HomeController> {
 
@@ -244,7 +245,7 @@ class HomeScreen extends GetView<HomeController> {
         ),
         bottomSheet: Obx(() {
 
-          if (BookingDetails.isNewRide.value) {
+          if (true/*BookingDetails.isNewRide.value*/) {
             controller.markLocation();
            return BottomSheet(
               onClosing: () {},
@@ -291,6 +292,19 @@ class HomeScreen extends GetView<HomeController> {
                                       ),
                                       Row(
                                         children: [
+
+
+                                          SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: IconButton(
+                                                onPressed: () async {
+                                                  controller.navigateToDestination(
+                                                      Coords(double.parse(BookingDetails.customerLat.value) ,
+                                                          double.parse(BookingDetails.customerLng.value)));
+                                                },
+                                                icon: Image.asset("assets/icons/navigator_icon.png"),
+                                              )),
                                           SizedBox(
                                               width: 40,
                                               height: 40,
@@ -298,12 +312,14 @@ class HomeScreen extends GetView<HomeController> {
                                                 onPressed: () {},
                                                 icon: Image.asset("assets/icons/message_icon.png"),
                                               )),
-                                          SizedBox(),
                                           SizedBox(
                                               width: 40,
                                               height: 40,
                                               child: IconButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+
+                                                  controller.makePhoneCall(BookingDetails.customerPhone.value);
+                                                },
                                                 icon: Image.asset("assets/icons/call_icon.png"),
                                               )),
                                         ],

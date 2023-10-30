@@ -13,7 +13,9 @@ import 'package:lazure_cleaner/model/UserResponse.dart';
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
 import 'package:lazure_cleaner/utils/constants.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../api_service/api_services.dart';
 
@@ -352,6 +354,27 @@ class HomeController extends GetxController {
     } else {
       return true;
     }
+  }
+
+
+  Future<void> navigateToDestination(Coords coords)
+  async {
+
+    final availableMaps = await MapLauncher.installedMaps;
+    print(availableMaps); // [AvailableMap { mapName: Google Maps, mapType: google }, ...]
+
+    await availableMaps.first.showMarker(
+      coords: coords,
+      title: "Destination",
+    );
+  }
+
+  Future<void> makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
   }
 
   Future<void> onMapCreated(GoogleMapController controller) async {
