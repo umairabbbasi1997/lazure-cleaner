@@ -5,7 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
+
 import 'package:lazure_cleaner/model/UserResponse.dart';
 import 'package:lazure_cleaner/utils/constants.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -32,7 +32,7 @@ class ProfileController extends GetxController {
 
   late UserResponse user;
 
-  Future getImage(ImgSource source,BuildContext context) async {
+/*  Future getImage(ImgSource source,BuildContext context) async {
 
     await Permission.photos.request();
 
@@ -64,10 +64,10 @@ class ProfileController extends GetxController {
 //    myImage.value = File(image.path) ;
     profileUrl.value = image.path;
 
-    /*setState(() {
+    *//*setState(() {
         myImage = File(image.path);
-      });*/
-  }
+      });*//*
+  }*/
 
 
   Future<bool> updateProfile( BuildContext context) async {
