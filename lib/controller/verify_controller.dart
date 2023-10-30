@@ -1,10 +1,12 @@
 
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:lazure_cleaner/constants/BookingDetails.dart';
 
+import '../api_service/api_services.dart';
 import '../navigation/nav_paths.dart';
 
 class VerifyController extends GetxController
@@ -14,7 +16,7 @@ class VerifyController extends GetxController
   var selectedImagePath=''.obs;
   var extractedText=''.obs;
   ///get image method
-  Future<void> recognizedText(String pickedImage) async {
+/*  Future<void> recognizedText(String pickedImage) async {
     if (pickedImage == null) {
       Get.snackbar(
 
@@ -47,10 +49,64 @@ class VerifyController extends GetxController
             backgroundColor: Colors.red);
       }
     }
+  }*/
+
+
+  Future<void> verifyPlat(String imagePath,BuildContext context)
+  async {
+    var response = await ApiService().postPlatReader(context,imagePath);
+
+  var result =  jsonDecode(response.body)['results'];
+    //print("extractedPlatNo: $result");
+
+
+  if ( result != null )
+  {
+
+    String extractedPlatNo =  jsonDecode(response.body)['results'][0]['plate'];
+
+    print("extracted: "+extractedPlatNo +" cusreg: "+BookingDetails.customerRegNo.toString());
+
+    print("filtered text : "+removeSpecialCharacters(extractedPlatNo.toString().toLowerCase()) +" cusreg: "+removeSpecialCharacters(BookingDetails.customerRegNo.toLowerCase()) );
+
+    if(removeSpecialCharacters(extractedPlatNo.toString().toLowerCase())
+        .contains(removeSpecialCharacters(BookingDetails.customerRegNo.toLowerCase()) ))
+    {
+      Get.snackbar(
+
+          "Success", "Verified"
+          ,
+          backgroundColor: Colors.green);
+      extractedPlatNo = "";
+      Get.offNamed(navVerified);
+
+
+    }
+    else{
+      Get.snackbar(
+
+          "Error", "Vehicle Registration Doesn't Matched"
+          ,
+          backgroundColor: Colors.red);
+      extractedPlatNo = "";
+
+
+    }
+  }
+  else{
+    Get.snackbar(
+
+        "Error", "Vehicle Registration Doesn't Matched"
+        ,
+        backgroundColor: Colors.red);
+
+
   }
 
-  bool verifyCarDetails() {
-/*    if(extractedText.contains(Booki))*/
+  }
+
+/*  bool verifyCarDetails() {
+*//*    if(extractedText.contains(Booki))*//*
   print("extracted: "+extractedText.toString() +" cusreg: "+BookingDetails.customerRegNo.toString());
   if(extractedText.contains(BookingDetails.customerRegNo))
     {
@@ -74,5 +130,12 @@ class VerifyController extends GetxController
 
     return false;
   }
+  }*/
+
+  String removeSpecialCharacters(String text)
+  {
+   var filteredText = text.replaceAll("/[`~!@#%^&*()_|+\-=?;:',.<>\-\{\}\[\]\\\/]/gi", '');
+
+  return filteredText.replaceAll('-', "");
   }
 }

@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker_gallery_camera/image_picker_gallery_camera.dart';
+
+import 'package:image_picker_plus/image_picker_plus.dart';
+
 import 'package:lazure_cleaner/controller/verify_controller.dart';
-import 'package:lazure_cleaner/navigation/nav_paths.dart';
 
 class UploadCarDetails extends GetView<VerifyController> {
   File? myImage;
+  final ImagePickerPlus _picker = ImagePickerPlus(Get!.context!);
 
 
   @override
@@ -43,7 +45,7 @@ class UploadCarDetails extends GetView<VerifyController> {
                 Padding(padding: EdgeInsets.only(top: 30),
                   child:GestureDetector(
                     onTap: (){
-                      getImage(ImgSource.Camera,context);
+                      getImage(ImageSource.camera,context);
                     },
                     child: Container(
 
@@ -79,7 +81,7 @@ class UploadCarDetails extends GetView<VerifyController> {
                 Padding(padding: EdgeInsets.only(top: 20),
                   child:GestureDetector(
                     onTap: (){
-                      getImage(ImgSource.Camera,context);
+                      getImage(ImageSource.camera,context);
                     },
                     child: Container(
 
@@ -123,14 +125,19 @@ class UploadCarDetails extends GetView<VerifyController> {
                 child: ElevatedButton(
                   onPressed: () {
 
-                    controller.verifyCarDetails();
+//                    controller.verifyCarDetails();
+                    if(myImage!.path.isNotEmpty)
+                      {
+                        controller.verifyPlat(myImage!.path,context);
+
+                      }
                   },
+                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(
+                      Colors.lightGreen
+                  )),
                   child:
                   Text("Verify"
                   ),
-                  style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
-                      Colors.lightGreen
-                  )),
 
                 ),
               )
@@ -140,8 +147,8 @@ class UploadCarDetails extends GetView<VerifyController> {
     );
   }
 
-  Future getImage(ImgSource source,BuildContext context) async {
-    var image = await ImagePickerGC.pickImage(
+  Future getImage(ImageSource source,BuildContext context) async {
+    var image = await _picker.pickImage(source: source);/* .pickImage(
       enableCloseButton: true,
       closeIcon: const Icon(
         Icons.close,
@@ -165,10 +172,10 @@ class UploadCarDetails extends GetView<VerifyController> {
         style: TextStyle(color: Colors.blue),
       ),
     );
+*/
+    myImage = File(image!.selectedFiles.first.selectedFile.path);
 
-    myImage = File(image.path);
-
-    controller.recognizedText(image.path);
+   // controller.recognizedText(image.selectedFiles.first.selectedFile.path);
 
  }
 

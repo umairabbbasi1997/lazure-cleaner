@@ -27,6 +27,7 @@ class Constants {
 
 
 
+  static String PLAT_READER_URL = 'https://api.platerecognizer.com/v1/plate-reader/';
 
 
 
