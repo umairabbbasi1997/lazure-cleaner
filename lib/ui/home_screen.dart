@@ -245,7 +245,7 @@ class HomeScreen extends GetView<HomeController> {
         ),
         bottomSheet: Obx(() {
 
-          if (true/*BookingDetails.isNewRide.value*/) {
+          if (BookingDetails.isNewRide.value) {
             controller.markLocation();
            return BottomSheet(
               onClosing: () {},
