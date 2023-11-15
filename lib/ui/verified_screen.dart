@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lazure_cleaner/constants/BookingDetails.dart';
 import 'package:lazure_cleaner/controller/home_controller.dart';
 import 'package:lazure_cleaner/navigation/nav_paths.dart';
 
@@ -23,7 +24,7 @@ class VerifiedScreen extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Padding(padding: EdgeInsets.only(top:10,bottom: 40),
+            child: Padding(padding: const EdgeInsets.only(top:10,bottom: 40),
                 child:SizedBox(
                   width: 160,
                   height: 50,
@@ -31,14 +32,15 @@ class VerifiedScreen extends StatelessWidget {
                     onPressed: () async {
                     await  HomeController.jobStartedRequest(context);
 
-                      Get.offNamed(navCollectPayment);
+                    BookingDetails.carPictureType = BookingDetails.afterCleaning;
+                      Get.offNamed(navVehicleCleaningProof);
                     },
-                    child:
-                    Text("Done"
-                    ),
-                    style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
+                    style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(
                         Colors.green
                     )),
+                    child:
+                    const Text("Start Ride"
+                    ),
 
                   ),
                 )

@@ -1,7 +1,6 @@
 
 
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lazure_cleaner/constants/BookingDetails.dart';
@@ -12,9 +11,12 @@ import '../navigation/nav_paths.dart';
 class VerifyController extends GetxController
 {
 
+
+
 /*  var myImage = File().obs;*/
   var selectedImagePath=''.obs;
   var extractedText=''.obs;
+
   ///get image method
 /*  Future<void> recognizedText(String pickedImage) async {
     if (pickedImage == null) {
@@ -78,6 +80,8 @@ class VerifyController extends GetxController
           ,
           backgroundColor: Colors.green);
       extractedPlatNo = "";
+
+
       Get.offNamed(navVerified);
 
 

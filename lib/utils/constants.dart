@@ -24,7 +24,9 @@ class Constants {
   static String ARRIVED_JOB_URL = '$baseURL/bookings/arrived';
   static String COMPLETED_JOB_URL = '$baseURL/bookings/completed';
   static String JOB_HISTORY_URL = '$baseURL/bookings';
-
+  static String UPLOAD_CAR_IMAGES = '$baseURL/bookings/1/images';
+  static String SELECT_SERVICE = 'http://143.110.190.6/api/v1/services';
+  static String ADD_ADDONS = '$baseURL/bookings/add-addons';
 
 
   static String PLAT_READER_URL = 'https://api.platerecognizer.com/v1/plate-reader/';

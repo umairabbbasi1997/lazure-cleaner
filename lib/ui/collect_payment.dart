@@ -1,76 +1,87 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lazure_cleaner/constants/BookingDetails.dart';
+import 'package:lazure_cleaner/navigation/nav_paths.dart';
 
 class CollectPayment extends StatelessWidget {
   var amountController = TextEditingController();
 
-   CollectPayment({Key? key}) : super(key: key);
+  CollectPayment({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-
-
-          height: MediaQuery.of(context).size.height,
-          margin: EdgeInsets.only(top: 25),
-          decoration:  const BoxDecoration(
-
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image:
-                AssetImage("assets/images/bg_lines_logo.jpeg",),
-
-              ),),
-
+        height: MediaQuery.of(context).size.height,
+        margin: EdgeInsets.only(top: 25),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage(
+              "assets/images/bg_lines_logo.jpeg",
+            ),
+          ),
+        ),
         child: Padding(
-          padding: const EdgeInsets.only(left: 40,right: 40),
+          padding: const EdgeInsets.only(left: 40, right: 40),
           child: Column(
             children: [
-              SizedBox(height:80 ,),
-
-              Text("Collect Payment"
-                ,style: TextStyle(fontSize: 19,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold
-                ),
+              SizedBox(
+                height: 80,
               ),
-            SizedBox(height: 90,)
-            ,
+              Text(
+                "Collect Payment",
+                style: TextStyle(
+                    fontSize: 19,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 90,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                        "Total Amount: ${BookingDetails.bookingCalculatedPrice} ${BookingDetails.bookingCurrencyCode}")),
+              ),
               TextField(
                 controller: amountController,
                 cursorColor: Colors.black,
                 cursorHeight: 25,
                 decoration: InputDecoration(
                   label: Text("Amount"),
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black, width: 1)),
-                  disabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black, width: 1)),
-                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black, width: 1)),
-                  errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 1)),
-
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 1)),
+                  disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 1)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black, width: 1)),
+                  errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red, width: 1)),
                 ),
               ),
-SizedBox(height: 20),
-              Padding(padding: EdgeInsets.only(top: 60,),
-                child:SizedBox(
+              SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 60,
+                ),
+                child: SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: ()  async {
-                     Get.back();
+                    onPressed: () async {
+                      Get.offNamed(navJobComplete);
                     },
-                    child:
-                    Text("Collect Payment"
-                    ),
-                    style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
-                        Colors.lightGreen
-                    )),
-
+                    child: Text("Collect Payment"),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll(Colors.lightGreen)),
                   ),
-                ) ,
+                ),
               )
-
 
 /*          Container(
                 width: double.infinity,

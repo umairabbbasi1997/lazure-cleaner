@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:lazure_cleaner/navigation/screen_nav.dart';
 import 'package:lazure_cleaner/services/firebase_messaging_service.dart';
 import 'package:lazure_cleaner/ui/splash_screen.dart';
+import 'package:lazure_cleaner/ui/vehicle_cleaning_proof.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {

@@ -1,13 +1,7 @@
-import 'dart:async';
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:lazure_cleaner/constants/BookingDetails.dart';
-import 'package:lazure_cleaner/constants/BookingDetails.dart';
 import 'package:lazure_cleaner/constants/BookingDetails.dart';
 import 'package:lazure_cleaner/controller/home_controller.dart';
 
@@ -63,7 +57,7 @@ class HomeScreen extends GetView<HomeController> {
                                 children: [
                                 Obx(() =>   Text(controller.userName.value,
                                     style:
-                                    TextStyle(
+                                    const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18
                                     )
@@ -121,7 +115,7 @@ class HomeScreen extends GetView<HomeController> {
                           leading: Image.asset(  height: 30,
                               width: 30,
                               "assets/icons/profile_icon.png"),
-                          title: Text(
+                          title: const Text(
                             "My Profile",
                             style:
                             TextStyle(fontWeight: FontWeight.bold)
@@ -135,7 +129,7 @@ class HomeScreen extends GetView<HomeController> {
                           leading: Image.asset(  height: 30,
                               width: 30,
                               "assets/icons/job_history_icon.png"),
-                          title: Text(
+                          title: const Text(
                             "Job History",
                             style:
                             TextStyle(fontWeight: FontWeight.bold)
@@ -180,7 +174,7 @@ class HomeScreen extends GetView<HomeController> {
                           leading: Image.asset(  height: 30,
                               width: 30,
                               "assets/icons/change_password_icon.png"),
-                          title: Text(
+                          title: const Text(
                             "Change Password",
                             style:
                             TextStyle(fontWeight: FontWeight.bold)
@@ -195,7 +189,7 @@ class HomeScreen extends GetView<HomeController> {
                           leading: Image.asset(  height: 30,
                               width: 30,
                               "assets/icons/logout_icon.png"),
-                          title: Text(
+                          title: const Text(
                             "Logout",
                             style:
                             TextStyle(fontWeight: FontWeight.bold)
@@ -216,30 +210,28 @@ class HomeScreen extends GetView<HomeController> {
         appBar: AppBar(
           backgroundColor: Colors.black
           ,
-          title: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: GestureDetector(
-                        onTap: (){
-                          _key.currentState!.openDrawer();
-                        },
-                        child: Image.asset("assets/icons/menu.png"))),
-                Text("Online"),
-               Obx(() =>  Switch(
-                 value: BookingDetails.isOnline.value,
-                 onChanged: (bool value) async {
-                   await controller.switchOnlineRequest(context, value ? "1" : "0");
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                  width: 30,
+                  height: 30,
+                  child: GestureDetector(
+                      onTap: (){
+                        _key.currentState!.openDrawer();
+                      },
+                      child: Image.asset("assets/icons/menu.png"))),
+              const Text("Online"),
+             Obx(() =>  Switch(
+               value: BookingDetails.isOnline.value,
+               onChanged: (bool value) async {
+                 await controller.switchOnlineRequest(context, value ? "1" : "0");
 
-                 },
-                 activeTrackColor: Colors.lightGreen,
-                 activeColor: Colors.white,
-               ))
-              ],
-            ),
+               },
+               activeTrackColor: Colors.lightGreen,
+               activeColor: Colors.white,
+             ))
+            ],
           ),
           automaticallyImplyLeading: false,
         ),
@@ -269,7 +261,7 @@ class HomeScreen extends GetView<HomeController> {
                                         children: [
                                           Obx(() => Text(
                                             BookingDetails.customerName.value,
-                                            style: TextStyle(color: Colors.white),
+                                            style: const TextStyle(color: Colors.white),
                                           )),
                                           Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -348,7 +340,7 @@ class HomeScreen extends GetView<HomeController> {
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
+                                                const Text(
                                                   "Contact Number",
                                                   style: TextStyle(fontWeight: FontWeight.w600),
                                                 ),
@@ -361,7 +353,7 @@ class HomeScreen extends GetView<HomeController> {
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Text(
+                                                const Text(
                                                   "Address",
                                                   style: TextStyle(fontWeight: FontWeight.w600),
                                                 ),
@@ -433,16 +425,18 @@ class HomeScreen extends GetView<HomeController> {
                                                   }
                                                   else if(controller.arrivedText.value == "End Cleaning")
                                                   {
+                                                    BookingDetails.carPictureType = BookingDetails.afterCleaning;
+                                                    Get.toNamed(navVehicleCleaningProof);
                                                     controller.jobCompletedRequest(context);
                                                   }
 
                                                 },
+                                                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(
+                                                    Colors.lightGreen
+                                                )),
                                                 child:
                                                 Text(controller.arrivedText.value
                                                 ),
-                                                style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
-                                                    Colors.lightGreen
-                                                )),
 
                                               ),
                                             ),
@@ -458,12 +452,12 @@ class HomeScreen extends GetView<HomeController> {
                                                     onPressed: () {
                                                       controller.jobRejectRequest(context);
                                                     },
-                                                    child:
-                                                    Text("Ignore"
-                                                    ),
-                                                    style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
+                                                    style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(
                                                         Colors.red
                                                     )),
+                                                    child:
+                                                    const Text("Ignore"
+                                                    ),
 
                                                   ),
                                                 ),
@@ -488,12 +482,12 @@ class HomeScreen extends GetView<HomeController> {
 
 
                                                     },
-                                                    child:
-                                                    Text("Accept"
-                                                    ),
-                                                    style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(
+                                                    style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(
                                                         Colors.lightGreen
                                                     )),
+                                                    child:
+                                                    const Text("Accept"
+                                                    ),
 
                                                   ),
                                                 ),
@@ -517,7 +511,7 @@ class HomeScreen extends GetView<HomeController> {
             );
           }
           else {
-            return SizedBox();
+            return const SizedBox();
           }
         } ),
         body: LoaderOverlay(

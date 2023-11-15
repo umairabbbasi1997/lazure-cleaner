@@ -250,7 +250,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child:GestureDetector(
                     onTap: ()
                     {
-                      Get.offAndToNamed(navHome);
+                      Get.offNamed(navHome);
                     },
                     child: SizedBox(
                       width: double.infinity,

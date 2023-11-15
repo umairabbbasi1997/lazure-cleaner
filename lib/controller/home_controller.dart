@@ -186,7 +186,7 @@ class HomeController extends GetxController {
       isArrived.value = !isArrived.value;
       buttonsAlignment.value = MainAxisAlignment.spaceBetween;*/
       arrivedText.value = "End Cleaning";
-      Get.toNamed(navUploadCarDetails);
+      Get.toNamed(navAdons);
     }
   }
 
@@ -227,7 +227,7 @@ class HomeController extends GetxController {
       BookingDetails.isAccept.value = true;
       BookingDetails.isArrived.value = false;
       buttonsAlignment.value = MainAxisAlignment.spaceBetween;
-      Get.toNamed(navJobComplete);
+      Get.toNamed(navCollectPayment);
     }
   }
 
